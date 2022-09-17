@@ -1,10 +1,5 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
-import {
-  IsNumber,
-  IsOptional,
-  IsPositive,
-  ValidateNested,
-} from 'class-validator';
+import { InputType, Field } from '@nestjs/graphql';
+import { IsOptional } from 'class-validator';
 @InputType('CreateSuppliersAndCustomer')
 export class CreateSuppliersAndCustomerInput {
   @IsOptional()

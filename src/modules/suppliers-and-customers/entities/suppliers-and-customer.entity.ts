@@ -1,6 +1,5 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { BaseEntity } from 'src/modules/bases/entities/base.entity';
-import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 @Entity()
 export class SuppliersAndCustomer extends BaseEntity {
   @Column({ nullable: true })
