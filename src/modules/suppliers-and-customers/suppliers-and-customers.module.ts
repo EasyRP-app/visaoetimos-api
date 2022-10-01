@@ -22,7 +22,6 @@ import { SuppliersAndCustomersService } from './suppliers-and-customers.service'
           DTOClass: SuppliersAndCustomerDTO,
           CreateDTOClass: CreateSuppliersAndCustomerInput,
           UpdateDTOClass: UpdateSuppliersAndCustomerInput,
-          // decorators: [Roles('SUPER_ADMIN', 'ADMIN', 'USER')],
           pagingStrategy: PagingStrategies.OFFSET,
         },
       ],
