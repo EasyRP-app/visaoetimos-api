@@ -8,8 +8,8 @@ services:
       context: .
       target: development
     volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
+      - 	/usr/local/sbin:/usr/src/app
+      - 	/usr/local/sbin:/usr/src/app/node_modules
     expose:
       - 4000
     ports:
