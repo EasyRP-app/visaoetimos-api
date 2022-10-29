@@ -1,0 +1,319 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateManySuppliersAndCustomersInput {
+  """Array of records to create"""
+  suppliersAndCustomers: [CreateSuppliersAndCustomer!]!
+}
+
+input CreateOneSuppliersAndCustomerInput {
+  """The record to create"""
+  suppliersAndCustomer: CreateSuppliersAndCustomer!
+}
+
+input CreateSuppliersAndCustomer {
+  address: String!
+  cpf: String!
+  email: String!
+  name: String!
+  phone: String!
+}
+
+input DateFieldComparison {
+  between: DateFieldComparisonBetween
+  eq: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  is: Boolean
+  isNot: Boolean
+  lt: DateTime
+  lte: DateTime
+  neq: DateTime
+  notBetween: DateFieldComparisonBetween
+  notIn: [DateTime!]
+}
+
+input DateFieldComparisonBetween {
+  lower: DateTime!
+  upper: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type DeleteManyResponse {
+  """The number of records deleted."""
+  deletedCount: Int!
+}
+
+input DeleteManySuppliersAndCustomersInput {
+  """Filter to find records to delete"""
+  filter: SuppliersAndCustomerDeleteFilter!
+}
+
+input DeleteOneSuppliersAndCustomerInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input IDFilterComparison {
+  eq: ID
+  gt: ID
+  gte: ID
+  iLike: ID
+  in: [ID!]
+  is: Boolean
+  isNot: Boolean
+  like: ID
+  lt: ID
+  lte: ID
+  neq: ID
+  notILike: ID
+  notIn: [ID!]
+  notLike: ID
+}
+
+type Mutation {
+  createManySuppliersAndCustomers(input: CreateManySuppliersAndCustomersInput!): [SuppliersAndCustomer!]!
+  createOneSuppliersAndCustomer(input: CreateOneSuppliersAndCustomerInput!): SuppliersAndCustomer!
+  deleteManySuppliersAndCustomers(input: DeleteManySuppliersAndCustomersInput!): DeleteManyResponse!
+  deleteOneSuppliersAndCustomer(input: DeleteOneSuppliersAndCustomerInput!): SuppliersAndCustomerDeleteResponse!
+  updateManySuppliersAndCustomers(input: UpdateManySuppliersAndCustomersInput!): UpdateManyResponse!
+  updateOneSuppliersAndCustomer(input: UpdateOneSuppliersAndCustomerInput!): SuppliersAndCustomer!
+}
+
+type OffsetPageInfo {
+  """true if paging forward and there are more records."""
+  hasNextPage: Boolean
+
+  """true if paging backwards and there are more records."""
+  hasPreviousPage: Boolean
+}
+
+input OffsetPaging {
+  """Limit the number of records returned"""
+  limit: Int
+
+  """Offset to start returning records from"""
+  offset: Int
+}
+
+type Query {
+  suppliersAndCustomer(
+    """The id of the record to find."""
+    id: ID!
+  ): SuppliersAndCustomer
+  suppliersAndCustomers(
+    """Specify to filter the records returned."""
+    filter: SuppliersAndCustomerFilter = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [SuppliersAndCustomerSort!] = []
+  ): SuppliersAndCustomerConnection!
+}
+
+"""Sort Directions"""
+enum SortDirection {
+  ASC
+  DESC
+}
+
+"""Sort Nulls Options"""
+enum SortNulls {
+  NULLS_FIRST
+  NULLS_LAST
+}
+
+input StringFieldComparison {
+  eq: String
+  gt: String
+  gte: String
+  iLike: String
+  in: [String!]
+  is: Boolean
+  isNot: Boolean
+  like: String
+  lt: String
+  lte: String
+  neq: String
+  notILike: String
+  notIn: [String!]
+  notLike: String
+}
+
+type SuppliersAndCustomer {
+  address: String!
+  cpf: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String
+  id: ID!
+  name: String
+  phone: String!
+  updatedAt: DateTime
+}
+
+type SuppliersAndCustomerAggregateGroupBy {
+  address: String
+  cpf: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String
+  id: ID
+  name: String
+  phone: String
+  updatedAt: DateTime
+}
+
+type SuppliersAndCustomerConnection {
+  """Array of nodes."""
+  nodes: [SuppliersAndCustomer!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+}
+
+type SuppliersAndCustomerCountAggregate {
+  address: Int
+  cpf: Int
+  createdAt: Int
+  deletedAt: Int
+  email: Int
+  id: Int
+  name: Int
+  phone: Int
+  updatedAt: Int
+}
+
+input SuppliersAndCustomerDeleteFilter {
+  address: StringFieldComparison
+  and: [SuppliersAndCustomerDeleteFilter!]
+  cpf: StringFieldComparison
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  email: StringFieldComparison
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [SuppliersAndCustomerDeleteFilter!]
+  phone: StringFieldComparison
+  updatedAt: DateFieldComparison
+}
+
+type SuppliersAndCustomerDeleteResponse {
+  address: String
+  cpf: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String
+  id: ID
+  name: String
+  phone: String
+  updatedAt: DateTime
+}
+
+input SuppliersAndCustomerFilter {
+  address: StringFieldComparison
+  and: [SuppliersAndCustomerFilter!]
+  cpf: StringFieldComparison
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  email: StringFieldComparison
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [SuppliersAndCustomerFilter!]
+  phone: StringFieldComparison
+  updatedAt: DateFieldComparison
+}
+
+type SuppliersAndCustomerMaxAggregate {
+  address: String
+  cpf: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String
+  id: ID
+  name: String
+  phone: String
+  updatedAt: DateTime
+}
+
+type SuppliersAndCustomerMinAggregate {
+  address: String
+  cpf: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String
+  id: ID
+  name: String
+  phone: String
+  updatedAt: DateTime
+}
+
+input SuppliersAndCustomerSort {
+  direction: SortDirection!
+  field: SuppliersAndCustomerSortFields!
+  nulls: SortNulls
+}
+
+enum SuppliersAndCustomerSortFields {
+  address
+  cpf
+  createdAt
+  deletedAt
+  email
+  id
+  name
+  phone
+  updatedAt
+}
+
+input SuppliersAndCustomerUpdateFilter {
+  address: StringFieldComparison
+  and: [SuppliersAndCustomerUpdateFilter!]
+  cpf: StringFieldComparison
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  email: StringFieldComparison
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [SuppliersAndCustomerUpdateFilter!]
+  phone: StringFieldComparison
+  updatedAt: DateFieldComparison
+}
+
+type UpdateManyResponse {
+  """The number of records updated."""
+  updatedCount: Int!
+}
+
+input UpdateManySuppliersAndCustomersInput {
+  """Filter used to find fields to update"""
+  filter: SuppliersAndCustomerUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateSuppliersAndCustomerInput!
+}
+
+input UpdateOneSuppliersAndCustomerInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateSuppliersAndCustomerInput!
+}
+
+input UpdateSuppliersAndCustomerInput {
+  address: String
+  cpf: String
+  email: String
+  id: ID!
+  name: String
+  phone: String
+}
