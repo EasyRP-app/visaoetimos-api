@@ -19,7 +19,7 @@ services:
     command: npm run start:debug
 
     env_file:
-      - .env
+      - ../.env
     networks:
       - backend
     depends_on:
