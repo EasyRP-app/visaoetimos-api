@@ -2,8 +2,6 @@ FROM node:14.17.1-alpine As production
 
 WORKDIR /usr/src/app
 
-RUN chown -Rh node:node /usr/src/app
-
 EXPOSE 4000
 
 COPY package*.json ./
