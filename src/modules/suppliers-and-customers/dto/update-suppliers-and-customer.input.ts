@@ -6,5 +6,5 @@ export class UpdateSuppliersAndCustomerInput extends PartialType(
   CreateSuppliersAndCustomerInput,
 ) {
   @Field(() => ID)
-  id: string;
+  id?: string;
 }
