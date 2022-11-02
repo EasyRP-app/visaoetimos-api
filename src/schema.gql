@@ -313,7 +313,7 @@ input UpdateSuppliersAndCustomerInput {
   address: String
   cpf: String
   email: String
-  id: ID!
+  id: ID
   name: String
   phone: String
 }
