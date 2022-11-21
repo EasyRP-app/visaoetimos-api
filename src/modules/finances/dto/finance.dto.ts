@@ -1,5 +1,5 @@
 import { FilterableField } from '@nestjs-query/query-graphql';
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
 import { BaseEntity } from 'src/modules/bases/entities/base.entity';
 
 import { finaceStatusTypeEnum } from '../entities/enums/status.enum';

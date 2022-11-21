@@ -1,6 +1,3 @@
-import { FilterableField } from '@nestjs-query/query-graphql';
-import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { BaseDTO } from 'src/modules/bases/dto/base.dto';
 import { Column, Entity } from 'typeorm';
 import { accountPlanTypeEnum } from './enums/account-plan.enum';
 import { costTypeEnum } from './enums/costType.enum';

@@ -1,4 +1,4 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
 import { IsOptional } from 'class-validator';
 import { finaceStatusTypeEnum } from '../entities/enums/status.enum';
 
