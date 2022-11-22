@@ -6,10 +6,9 @@ services:
     container_name: easyrp-api
     build:
       context: .
-      target: development
+      target: production
     volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
+      - ./uploads:/usr/src/app/uploads
     expose:
       - 4000
     ports:
@@ -19,7 +18,7 @@ services:
     command: npm run start:debug
 
     env_file:
-      - .env
+      - stack.env
     networks:
       - backend
     depends_on:
