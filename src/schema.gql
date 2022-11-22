@@ -162,9 +162,24 @@ input CreateAccountPlan {
   name: String!
 }
 
+input CreateFinance {
+  comments: String!
+  dueDate: DateTime!
+  issuedate: String!
+  payDay: DateTime!
+  paymentTerm: DateTime!
+  status: finaceStatusTypeEnum!
+  value: Float!
+}
+
 input CreateManyAccountPlansInput {
   """Array of records to create"""
   accountPlans: [CreateAccountPlan!]!
+}
+
+input CreateManyFinancesInput {
+  """Array of records to create"""
+  finances: [CreateFinance!]!
 }
 
 input CreateManySuppliersAndCustomersInput {
@@ -175,6 +190,11 @@ input CreateManySuppliersAndCustomersInput {
 input CreateOneAccountPlanInput {
   """The record to create"""
   accountPlan: CreateAccountPlan!
+}
+
+input CreateOneFinancesInput {
+  """The record to create"""
+  finances: CreateFinance!
 }
 
 input CreateOneSuppliersAndCustomerInput {
@@ -220,6 +240,11 @@ input DeleteManyAccountPlansInput {
   filter: AccountPlanDeleteFilter!
 }
 
+input DeleteManyFinancesInput {
+  """Filter to find records to delete"""
+  filter: FinancesDeleteFilter!
+}
+
 type DeleteManyResponse {
   """The number of records deleted."""
   deletedCount: Int!
@@ -235,9 +260,173 @@ input DeleteOneAccountPlanInput {
   id: ID!
 }
 
+input DeleteOneFinancesInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
 input DeleteOneSuppliersAndCustomerInput {
   """The id of the record to delete."""
   id: ID!
+}
+
+input FinaceStatusTypeEnumFilterComparison {
+  eq: finaceStatusTypeEnum
+  gt: finaceStatusTypeEnum
+  gte: finaceStatusTypeEnum
+  iLike: finaceStatusTypeEnum
+  in: [finaceStatusTypeEnum!]
+  is: Boolean
+  isNot: Boolean
+  like: finaceStatusTypeEnum
+  lt: finaceStatusTypeEnum
+  lte: finaceStatusTypeEnum
+  neq: finaceStatusTypeEnum
+  notILike: finaceStatusTypeEnum
+  notIn: [finaceStatusTypeEnum!]
+  notLike: finaceStatusTypeEnum
+}
+
+type Finances {
+  comments: String
+  createdAt: DateTime!
+  dueDate: DateTime!
+  id: ID!
+  issuedate: String!
+  payDay: DateTime
+  paymentTerm: DateTime!
+  status: finaceStatusTypeEnum!
+  updatedAt: DateTime!
+  value: Float!
+}
+
+type FinancesAggregateGroupBy {
+  createdAt: DateTime
+  dueDate: DateTime
+  issuedate: String
+  payDay: DateTime
+  paymentTerm: DateTime
+  status: finaceStatusTypeEnum
+  updatedAt: DateTime
+  value: Float
+}
+
+type FinancesAvgAggregate {
+  value: Float
+}
+
+type FinancesConnection {
+  """Array of nodes."""
+  nodes: [Finances!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+}
+
+type FinancesCountAggregate {
+  createdAt: Int
+  dueDate: Int
+  issuedate: Int
+  payDay: Int
+  paymentTerm: Int
+  status: Int
+  updatedAt: Int
+  value: Int
+}
+
+input FinancesDeleteFilter {
+  and: [FinancesDeleteFilter!]
+  createdAt: DateFieldComparison
+  dueDate: DateFieldComparison
+  issuedate: StringFieldComparison
+  or: [FinancesDeleteFilter!]
+  payDay: DateFieldComparison
+  paymentTerm: DateFieldComparison
+  status: FinaceStatusTypeEnumFilterComparison
+  updatedAt: DateFieldComparison
+  value: NumberFieldComparison
+}
+
+type FinancesDeleteResponse {
+  comments: String
+  createdAt: DateTime
+  dueDate: DateTime
+  id: ID
+  issuedate: String
+  payDay: DateTime
+  paymentTerm: DateTime
+  status: finaceStatusTypeEnum
+  updatedAt: DateTime
+  value: Float
+}
+
+input FinancesFilter {
+  and: [FinancesFilter!]
+  createdAt: DateFieldComparison
+  dueDate: DateFieldComparison
+  issuedate: StringFieldComparison
+  or: [FinancesFilter!]
+  payDay: DateFieldComparison
+  paymentTerm: DateFieldComparison
+  status: FinaceStatusTypeEnumFilterComparison
+  updatedAt: DateFieldComparison
+  value: NumberFieldComparison
+}
+
+type FinancesMaxAggregate {
+  createdAt: DateTime
+  dueDate: DateTime
+  issuedate: String
+  payDay: DateTime
+  paymentTerm: DateTime
+  status: finaceStatusTypeEnum
+  updatedAt: DateTime
+  value: Float
+}
+
+type FinancesMinAggregate {
+  createdAt: DateTime
+  dueDate: DateTime
+  issuedate: String
+  payDay: DateTime
+  paymentTerm: DateTime
+  status: finaceStatusTypeEnum
+  updatedAt: DateTime
+  value: Float
+}
+
+input FinancesSort {
+  direction: SortDirection!
+  field: FinancesSortFields!
+  nulls: SortNulls
+}
+
+enum FinancesSortFields {
+  createdAt
+  dueDate
+  issuedate
+  payDay
+  paymentTerm
+  status
+  updatedAt
+  value
+}
+
+type FinancesSumAggregate {
+  value: Float
+}
+
+input FinancesUpdateFilter {
+  and: [FinancesUpdateFilter!]
+  createdAt: DateFieldComparison
+  dueDate: DateFieldComparison
+  issuedate: StringFieldComparison
+  or: [FinancesUpdateFilter!]
+  payDay: DateFieldComparison
+  paymentTerm: DateFieldComparison
+  status: FinaceStatusTypeEnumFilterComparison
+  updatedAt: DateFieldComparison
+  value: NumberFieldComparison
 }
 
 input IDFilterComparison {
@@ -259,17 +448,43 @@ input IDFilterComparison {
 
 type Mutation {
   createManyAccountPlans(input: CreateManyAccountPlansInput!): [AccountPlan!]!
+  createManyFinances(input: CreateManyFinancesInput!): [Finances!]!
   createManySuppliersAndCustomers(input: CreateManySuppliersAndCustomersInput!): [SuppliersAndCustomer!]!
   createOneAccountPlan(input: CreateOneAccountPlanInput!): AccountPlan!
+  createOneFinances(input: CreateOneFinancesInput!): Finances!
   createOneSuppliersAndCustomer(input: CreateOneSuppliersAndCustomerInput!): SuppliersAndCustomer!
   deleteManyAccountPlans(input: DeleteManyAccountPlansInput!): DeleteManyResponse!
+  deleteManyFinances(input: DeleteManyFinancesInput!): DeleteManyResponse!
   deleteManySuppliersAndCustomers(input: DeleteManySuppliersAndCustomersInput!): DeleteManyResponse!
   deleteOneAccountPlan(input: DeleteOneAccountPlanInput!): AccountPlanDeleteResponse!
+  deleteOneFinances(input: DeleteOneFinancesInput!): FinancesDeleteResponse!
   deleteOneSuppliersAndCustomer(input: DeleteOneSuppliersAndCustomerInput!): SuppliersAndCustomerDeleteResponse!
   updateManyAccountPlans(input: UpdateManyAccountPlansInput!): UpdateManyResponse!
+  updateManyFinances(input: UpdateManyFinancesInput!): UpdateManyResponse!
   updateManySuppliersAndCustomers(input: UpdateManySuppliersAndCustomersInput!): UpdateManyResponse!
   updateOneAccountPlan(input: UpdateOneAccountPlanInput!): AccountPlan!
+  updateOneFinances(input: UpdateOneFinancesInput!): Finances!
   updateOneSuppliersAndCustomer(input: UpdateOneSuppliersAndCustomerInput!): SuppliersAndCustomer!
+}
+
+input NumberFieldComparison {
+  between: NumberFieldComparisonBetween
+  eq: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  is: Boolean
+  isNot: Boolean
+  lt: Float
+  lte: Float
+  neq: Float
+  notBetween: NumberFieldComparisonBetween
+  notIn: [Float!]
+}
+
+input NumberFieldComparisonBetween {
+  lower: Float!
+  upper: Float!
 }
 
 type OffsetPageInfo {
@@ -303,6 +518,16 @@ type Query {
     """Specify to sort results."""
     sorting: [AccountPlanSort!] = []
   ): AccountPlanConnection!
+  finances(
+    """Specify to filter the records returned."""
+    filter: FinancesFilter = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [FinancesSort!] = []
+  ): FinancesConnection!
   suppliersAndCustomer(
     """The id of the record to find."""
     id: ID!
@@ -495,12 +720,31 @@ input UpdateAccountPlanInput {
   name: String
 }
 
+input UpdateFinanceInput {
+  comments: String
+  dueDate: DateTime
+  id: Int!
+  issuedate: String
+  payDay: DateTime
+  paymentTerm: DateTime
+  status: finaceStatusTypeEnum
+  value: Float
+}
+
 input UpdateManyAccountPlansInput {
   """Filter used to find fields to update"""
   filter: AccountPlanUpdateFilter!
 
   """The update to apply to all records found using the filter"""
   update: UpdateAccountPlanInput!
+}
+
+input UpdateManyFinancesInput {
+  """Filter used to find fields to update"""
+  filter: FinancesUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateFinanceInput!
 }
 
 type UpdateManyResponse {
@@ -522,6 +766,14 @@ input UpdateOneAccountPlanInput {
 
   """The update to apply."""
   update: UpdateAccountPlanInput!
+}
+
+input UpdateOneFinancesInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateFinanceInput!
 }
 
 input UpdateOneSuppliersAndCustomerInput {
@@ -549,4 +801,9 @@ enum accountPlanTypeEnum {
 enum costTypeEnum {
   INCOME
   OUTCOME
+}
+
+enum finaceStatusTypeEnum {
+  OPEN
+  PAID
 }

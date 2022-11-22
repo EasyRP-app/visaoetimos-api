@@ -1,4 +1,4 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
 import { accountPlanTypeEnum } from '../entities/enums/account-plan.enum';
 import { costTypeEnum } from '../entities/enums/costType.enum';
 

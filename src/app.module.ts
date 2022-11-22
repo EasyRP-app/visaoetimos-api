@@ -8,6 +8,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SuppliersAndCustomersModule } from './modules/suppliers-and-customers/suppliers-and-customers.module';
 import { AccountPlansModule } from './modules/account-plans/account-plans.module';
+import { FinancesModule } from './modules/finances/finances.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { AccountPlansModule } from './modules/account-plans/account-plans.module
     ConfigModule.forRoot(),
     SuppliersAndCustomersModule,
     AccountPlansModule,
+    FinancesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
