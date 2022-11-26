@@ -1,26 +1,18 @@
+import { QueryService } from '@nestjs-query/core';
+import { TypeOrmQueryService } from '@nestjs-query/query-typeorm';
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateFinanceInput } from './dto/create-finance.input';
 import { UpdateFinanceInput } from './dto/update-finance.input';
+import { Finance } from './entities/finance.entity';
 
-@Injectable()
-export class FinancesService {
-  create(createFinanceInput: CreateFinanceInput) {
-    return 'This action adds a new finance';
-  }
-
-  findAll() {
-    return `This action returns all finances`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} finance`;
-  }
-
-  update(id: number, updateFinanceInput: UpdateFinanceInput) {
-    return `This action updates a #${id} finance`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} finance`;
+@QueryService(Finance)
+export class FinancesService extends TypeOrmQueryService<Finance> {
+  constructor(
+    @InjectRepository(Finance)
+    private repository: Repository<Finance>,
+  ) {
+    super(repository, { useSoftDelete: true });
   }
 }
