@@ -1,5 +1,5 @@
+import { Field, ID, InputType, PartialType } from '@nestjs/graphql';
 import { CreateSuppliersAndCustomerInput } from './create-suppliers-and-customer.input';
-import { InputType, Field, PartialType, ID } from '@nestjs/graphql';
 
 @InputType()
 export class UpdateSuppliersAndCustomerInput extends PartialType(

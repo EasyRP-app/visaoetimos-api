@@ -4,7 +4,6 @@ import {
   Connection,
   EntitySubscriberInterface,
   EventSubscriber,
-  InsertEvent,
 } from 'typeorm';
 import { Finance } from '../entities/finance.entity';
 import { FinancesService } from '../finances.service';
