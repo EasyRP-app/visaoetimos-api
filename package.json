@@ -38,6 +38,8 @@
     "graphql": "^16.6.0",
     "graphql-subscriptions": "^2.0.0",
     "pg": "^8.8.0",
+    "prettier-plugin-import-sort": "^0.0.7",
+    "prettier-plugin-organize-imports": "^3.2.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.5.7",
