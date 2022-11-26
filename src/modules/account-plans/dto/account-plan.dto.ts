@@ -1,9 +1,8 @@
 import {
   FilterableField,
   FilterableOffsetConnection,
-  FilterableRelation,
 } from '@nestjs-query/query-graphql';
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType } from '@nestjs/graphql';
 import { BaseDTO } from 'src/modules/bases/dto/base.dto';
 import { FinanceDTO } from 'src/modules/finances/dto/finance.dto';
 import { accountPlanTypeEnum } from '../entities/enums/account-plan.enum';

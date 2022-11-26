@@ -1,14 +1,11 @@
-import { InputType, Field } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql';
 import { IsOptional } from 'class-validator';
-import { UpdateAccountPlanInput } from 'src/modules/account-plans/dto/update-account-plan.input';
-import { AccountPlan } from 'src/modules/account-plans/entities/account-plan.entity';
-import { Column } from 'typeorm';
 import { finaceStatusTypeEnum } from '../entities/enums/status.enum';
 
 @InputType('CreateFinance')
 export class CreateFinanceInput {
   @Field()
-  issuedate: string;
+  issuedate: Date;
   @Field()
   paymentTerm: Date;
   @Field()
@@ -28,6 +25,8 @@ export class CreateFinanceInput {
   @Field({ nullable: true })
   accountplanId: string;
 
+  @Field({ nullable: true })
+  supplierAndCustomerId?: string;
   // @Field(() => UpdateAccountPlanInput)
   // accountplan: UpdateAccountPlanInput;
 }

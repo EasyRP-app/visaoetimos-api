@@ -6,9 +6,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { SuppliersAndCustomersModule } from './modules/suppliers-and-customers/suppliers-and-customers.module';
 import { AccountPlansModule } from './modules/account-plans/account-plans.module';
 import { FinancesModule } from './modules/finances/finances.module';
+import { SuppliersAndCustomersModule } from './modules/suppliers-and-customers/suppliers-and-customers.module';
 
 @Module({
   imports: [

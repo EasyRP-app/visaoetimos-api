@@ -89,7 +89,7 @@ input AccountPlanFilterFinancesFilter {
   and: [AccountPlanFilterFinancesFilter!]
   createdAt: DateFieldComparison
   dueDate: DateFieldComparison
-  issuedate: StringFieldComparison
+  issuedate: DateFieldComparison
   or: [AccountPlanFilterFinancesFilter!]
   payDay: DateFieldComparison
   paymentTerm: DateFieldComparison
@@ -179,6 +179,14 @@ input AddFinancesToAccountPlanInput {
   relationIds: [ID!]!
 }
 
+input AddFinancesToSuppliersAndCustomerInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
 input CostTypeEnumFilterComparison {
   eq: costTypeEnum
   gt: costTypeEnum
@@ -206,10 +214,11 @@ input CreateFinance {
   accountplanId: String
   comments: String!
   dueDate: DateTime!
-  issuedate: String!
+  issuedate: DateTime!
   payDay: DateTime!
   paymentTerm: DateTime!
   status: finaceStatusTypeEnum!
+  supplierAndCustomerId: String
   value: Float!
 }
 
@@ -334,10 +343,11 @@ type Finances {
   createdAt: DateTime!
   dueDate: DateTime!
   id: ID!
-  issuedate: String!
+  issuedate: DateTime!
   payDay: DateTime
   paymentTerm: DateTime!
   status: finaceStatusTypeEnum!
+  supplierAndCustomer: SuppliersAndCustomer
   updatedAt: DateTime!
   value: Float!
 }
@@ -345,7 +355,7 @@ type Finances {
 type FinancesAggregateGroupBy {
   createdAt: DateTime
   dueDate: DateTime
-  issuedate: String
+  issuedate: DateTime
   payDay: DateTime
   paymentTerm: DateTime
   status: finaceStatusTypeEnum
@@ -380,7 +390,7 @@ input FinancesDeleteFilter {
   and: [FinancesDeleteFilter!]
   createdAt: DateFieldComparison
   dueDate: DateFieldComparison
-  issuedate: StringFieldComparison
+  issuedate: DateFieldComparison
   or: [FinancesDeleteFilter!]
   payDay: DateFieldComparison
   paymentTerm: DateFieldComparison
@@ -394,7 +404,7 @@ type FinancesDeleteResponse {
   createdAt: DateTime
   dueDate: DateTime
   id: ID
-  issuedate: String
+  issuedate: DateTime
   payDay: DateTime
   paymentTerm: DateTime
   status: finaceStatusTypeEnum
@@ -407,11 +417,12 @@ input FinancesFilter {
   and: [FinancesFilter!]
   createdAt: DateFieldComparison
   dueDate: DateFieldComparison
-  issuedate: StringFieldComparison
+  issuedate: DateFieldComparison
   or: [FinancesFilter!]
   payDay: DateFieldComparison
   paymentTerm: DateFieldComparison
   status: FinaceStatusTypeEnumFilterComparison
+  supplierAndCustomer: FinancesFilterSuppliersAndCustomerFilter
   updatedAt: DateFieldComparison
   value: NumberFieldComparison
 }
@@ -428,10 +439,24 @@ input FinancesFilterAccountPlanFilter {
   updatedAt: DateFieldComparison
 }
 
+input FinancesFilterSuppliersAndCustomerFilter {
+  address: StringFieldComparison
+  and: [FinancesFilterSuppliersAndCustomerFilter!]
+  cpf: StringFieldComparison
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  email: StringFieldComparison
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [FinancesFilterSuppliersAndCustomerFilter!]
+  phone: StringFieldComparison
+  updatedAt: DateFieldComparison
+}
+
 type FinancesMaxAggregate {
   createdAt: DateTime
   dueDate: DateTime
-  issuedate: String
+  issuedate: DateTime
   payDay: DateTime
   paymentTerm: DateTime
   status: finaceStatusTypeEnum
@@ -442,7 +467,7 @@ type FinancesMaxAggregate {
 type FinancesMinAggregate {
   createdAt: DateTime
   dueDate: DateTime
-  issuedate: String
+  issuedate: DateTime
   payDay: DateTime
   paymentTerm: DateTime
   status: finaceStatusTypeEnum
@@ -475,7 +500,7 @@ input FinancesUpdateFilter {
   and: [FinancesUpdateFilter!]
   createdAt: DateFieldComparison
   dueDate: DateFieldComparison
-  issuedate: StringFieldComparison
+  issuedate: DateFieldComparison
   or: [FinancesUpdateFilter!]
   payDay: DateFieldComparison
   paymentTerm: DateFieldComparison
@@ -503,6 +528,7 @@ input IDFilterComparison {
 
 type Mutation {
   addFinancesToAccountPlan(input: AddFinancesToAccountPlanInput!): AccountPlan!
+  addFinancesToSuppliersAndCustomer(input: AddFinancesToSuppliersAndCustomerInput!): SuppliersAndCustomer!
   createManyAccountPlans(input: CreateManyAccountPlansInput!): [AccountPlan!]!
   createManyFinances(input: CreateManyFinancesInput!): [Finances!]!
   createManySuppliersAndCustomers(input: CreateManySuppliersAndCustomersInput!): [SuppliersAndCustomer!]!
@@ -517,8 +543,12 @@ type Mutation {
   deleteOneSuppliersAndCustomer(input: DeleteOneSuppliersAndCustomerInput!): SuppliersAndCustomerDeleteResponse!
   removeAccountplanFromFinances(input: RemoveAccountplanFromFinancesInput!): Finances!
   removeFinancesFromAccountPlan(input: RemoveFinancesFromAccountPlanInput!): AccountPlan!
+  removeFinancesFromSuppliersAndCustomer(input: RemoveFinancesFromSuppliersAndCustomerInput!): SuppliersAndCustomer!
+  removeSupplierAndCustomerFromFinances(input: RemoveSupplierAndCustomerFromFinancesInput!): Finances!
   setAccountplanOnFinances(input: SetAccountplanOnFinancesInput!): Finances!
   setFinancesOnAccountPlan(input: SetFinancesOnAccountPlanInput!): AccountPlan!
+  setFinancesOnSuppliersAndCustomer(input: SetFinancesOnSuppliersAndCustomerInput!): SuppliersAndCustomer!
+  setSupplierAndCustomerOnFinances(input: SetSupplierAndCustomerOnFinancesInput!): Finances!
   updateManyAccountPlans(input: UpdateManyAccountPlansInput!): UpdateManyResponse!
   updateManyFinances(input: UpdateManyFinancesInput!): UpdateManyResponse!
   updateManySuppliersAndCustomers(input: UpdateManySuppliersAndCustomersInput!): UpdateManyResponse!
@@ -620,6 +650,22 @@ input RemoveFinancesFromAccountPlanInput {
   relationIds: [ID!]!
 }
 
+input RemoveFinancesFromSuppliersAndCustomerInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input RemoveSupplierAndCustomerFromFinancesInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
 input SetAccountplanOnFinancesInput {
   """The id of the record."""
   id: ID!
@@ -634,6 +680,22 @@ input SetFinancesOnAccountPlanInput {
 
   """The ids of the relations."""
   relationIds: [ID!]!
+}
+
+input SetFinancesOnSuppliersAndCustomerInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input SetSupplierAndCustomerOnFinancesInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
 }
 
 """Sort Directions"""
@@ -671,6 +733,16 @@ type SuppliersAndCustomer {
   createdAt: DateTime
   deletedAt: DateTime
   email: String
+  finances(
+    """Specify to filter the records returned."""
+    filter: FinancesFilter = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [FinancesSort!] = []
+  ): SuppliersAndCustomerFinancesConnection
   id: ID!
   name: String
   phone: String!
@@ -742,11 +814,33 @@ input SuppliersAndCustomerFilter {
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
   email: StringFieldComparison
+  finances: SuppliersAndCustomerFilterFinancesFilter
   id: IDFilterComparison
   name: StringFieldComparison
   or: [SuppliersAndCustomerFilter!]
   phone: StringFieldComparison
   updatedAt: DateFieldComparison
+}
+
+input SuppliersAndCustomerFilterFinancesFilter {
+  and: [SuppliersAndCustomerFilterFinancesFilter!]
+  createdAt: DateFieldComparison
+  dueDate: DateFieldComparison
+  issuedate: DateFieldComparison
+  or: [SuppliersAndCustomerFilterFinancesFilter!]
+  payDay: DateFieldComparison
+  paymentTerm: DateFieldComparison
+  status: FinaceStatusTypeEnumFilterComparison
+  updatedAt: DateFieldComparison
+  value: NumberFieldComparison
+}
+
+type SuppliersAndCustomerFinancesConnection {
+  """Array of nodes."""
+  nodes: [Finances!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
 }
 
 type SuppliersAndCustomerMaxAggregate {
@@ -808,7 +902,7 @@ input SuppliersAndCustomerUpdateFilter {
 input UpdateAccountPlanInput {
   accountPlanType: accountPlanTypeEnum
   costType: costTypeEnum
-  id: ID!
+  id: ID
   name: String
 }
 
@@ -816,11 +910,12 @@ input UpdateFinanceInput {
   accountplanId: String
   comments: String
   dueDate: DateTime
-  id: ID!
-  issuedate: String
+  id: ID
+  issuedate: DateTime
   payDay: DateTime
   paymentTerm: DateTime
   status: finaceStatusTypeEnum
+  supplierAndCustomerId: String
   value: Float
 }
 
