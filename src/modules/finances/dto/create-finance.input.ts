@@ -5,7 +5,7 @@ import { finaceStatusTypeEnum } from '../entities/enums/status.enum';
 @InputType('CreateFinance')
 export class CreateFinanceInput {
   @Field()
-  issuedate: string;
+  issuedate: Date;
   @Field()
   paymentTerm: Date;
   @Field()

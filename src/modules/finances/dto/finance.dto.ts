@@ -18,7 +18,7 @@ import { finaceStatusTypeEnum } from '../entities/enums/status.enum';
 })
 export class FinanceDTO extends BaseEntity {
   @FilterableField()
-  issuedate: string;
+  issuedate: Date;
   @FilterableField()
   paymentTerm: Date;
   @FilterableField()

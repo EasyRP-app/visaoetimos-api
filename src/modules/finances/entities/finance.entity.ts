@@ -7,7 +7,7 @@ import { finaceStatusTypeEnum } from './enums/status.enum';
 @Entity()
 export class Finance extends BaseEntity {
   @Column()
-  issuedate: string;
+  issuedate: Date;
   @Column()
   paymentTerm: Date;
   @Column()

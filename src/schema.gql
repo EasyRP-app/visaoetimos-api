@@ -89,7 +89,7 @@ input AccountPlanFilterFinancesFilter {
   and: [AccountPlanFilterFinancesFilter!]
   createdAt: DateFieldComparison
   dueDate: DateFieldComparison
-  issuedate: StringFieldComparison
+  issuedate: DateFieldComparison
   or: [AccountPlanFilterFinancesFilter!]
   payDay: DateFieldComparison
   paymentTerm: DateFieldComparison
@@ -214,7 +214,7 @@ input CreateFinance {
   accountplanId: String
   comments: String!
   dueDate: DateTime!
-  issuedate: String!
+  issuedate: DateTime!
   payDay: DateTime!
   paymentTerm: DateTime!
   status: finaceStatusTypeEnum!
@@ -343,7 +343,7 @@ type Finances {
   createdAt: DateTime!
   dueDate: DateTime!
   id: ID!
-  issuedate: String!
+  issuedate: DateTime!
   payDay: DateTime
   paymentTerm: DateTime!
   status: finaceStatusTypeEnum!
@@ -355,7 +355,7 @@ type Finances {
 type FinancesAggregateGroupBy {
   createdAt: DateTime
   dueDate: DateTime
-  issuedate: String
+  issuedate: DateTime
   payDay: DateTime
   paymentTerm: DateTime
   status: finaceStatusTypeEnum
@@ -390,7 +390,7 @@ input FinancesDeleteFilter {
   and: [FinancesDeleteFilter!]
   createdAt: DateFieldComparison
   dueDate: DateFieldComparison
-  issuedate: StringFieldComparison
+  issuedate: DateFieldComparison
   or: [FinancesDeleteFilter!]
   payDay: DateFieldComparison
   paymentTerm: DateFieldComparison
@@ -404,7 +404,7 @@ type FinancesDeleteResponse {
   createdAt: DateTime
   dueDate: DateTime
   id: ID
-  issuedate: String
+  issuedate: DateTime
   payDay: DateTime
   paymentTerm: DateTime
   status: finaceStatusTypeEnum
@@ -417,7 +417,7 @@ input FinancesFilter {
   and: [FinancesFilter!]
   createdAt: DateFieldComparison
   dueDate: DateFieldComparison
-  issuedate: StringFieldComparison
+  issuedate: DateFieldComparison
   or: [FinancesFilter!]
   payDay: DateFieldComparison
   paymentTerm: DateFieldComparison
@@ -456,7 +456,7 @@ input FinancesFilterSuppliersAndCustomerFilter {
 type FinancesMaxAggregate {
   createdAt: DateTime
   dueDate: DateTime
-  issuedate: String
+  issuedate: DateTime
   payDay: DateTime
   paymentTerm: DateTime
   status: finaceStatusTypeEnum
@@ -467,7 +467,7 @@ type FinancesMaxAggregate {
 type FinancesMinAggregate {
   createdAt: DateTime
   dueDate: DateTime
-  issuedate: String
+  issuedate: DateTime
   payDay: DateTime
   paymentTerm: DateTime
   status: finaceStatusTypeEnum
@@ -500,7 +500,7 @@ input FinancesUpdateFilter {
   and: [FinancesUpdateFilter!]
   createdAt: DateFieldComparison
   dueDate: DateFieldComparison
-  issuedate: StringFieldComparison
+  issuedate: DateFieldComparison
   or: [FinancesUpdateFilter!]
   payDay: DateFieldComparison
   paymentTerm: DateFieldComparison
@@ -826,7 +826,7 @@ input SuppliersAndCustomerFilterFinancesFilter {
   and: [SuppliersAndCustomerFilterFinancesFilter!]
   createdAt: DateFieldComparison
   dueDate: DateFieldComparison
-  issuedate: StringFieldComparison
+  issuedate: DateFieldComparison
   or: [SuppliersAndCustomerFilterFinancesFilter!]
   payDay: DateFieldComparison
   paymentTerm: DateFieldComparison
@@ -911,7 +911,7 @@ input UpdateFinanceInput {
   comments: String
   dueDate: DateTime
   id: ID
-  issuedate: String
+  issuedate: DateTime
   payDay: DateTime
   paymentTerm: DateTime
   status: finaceStatusTypeEnum
