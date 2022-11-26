@@ -9,6 +9,7 @@ import { FinanceDTO } from './dto/finance.dto';
 import { UpdateFinanceInput } from './dto/update-finance.input';
 import { Finance } from './entities/finance.entity';
 import { FinancesService } from './finances.service';
+import { FinancesSubscriber } from './subscribers/finances.subscribe';
 
 @Module({
   imports: [
@@ -27,6 +28,6 @@ import { FinancesService } from './finances.service';
       ],
     }),
   ],
-  providers: [FinancesService],
+  providers: [FinancesService, FinancesSubscriber],
 })
 export class FinancesModule {}

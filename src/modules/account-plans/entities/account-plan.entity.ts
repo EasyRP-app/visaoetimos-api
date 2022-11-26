@@ -1,7 +1,8 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { accountPlanTypeEnum } from './enums/account-plan.enum';
 import { costTypeEnum } from './enums/costType.enum';
 import { BaseEntity } from 'src/modules/bases/entities/base.entity';
+import { Finance } from 'src/modules/finances/entities/finance.entity';
 @Entity()
 export class AccountPlan extends BaseEntity {
   @Column()
@@ -20,4 +21,7 @@ export class AccountPlan extends BaseEntity {
     nullable: false,
   })
   costType: costTypeEnum;
+
+  @OneToMany(() => Finance, (item) => item.accountplan, { nullable: true })
+  finaces?: Finance[];
 }

@@ -1,5 +1,6 @@
+import { AccountPlan } from 'src/modules/account-plans/entities/account-plan.entity';
 import { BaseEntity } from 'src/modules/bases/entities/base.entity';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, ManyToMany, ManyToOne } from 'typeorm';
 import { finaceStatusTypeEnum } from './enums/status.enum';
 
 @Entity()
@@ -18,4 +19,10 @@ export class Finance extends BaseEntity {
   value: number;
   @Column({ length: 200, nullable: true })
   comments?: string;
+
+  @ManyToOne(() => AccountPlan)
+  accountplan?: AccountPlan;
+
+  @Column({ nullable: true })
+  accountplanId: string;
 }
