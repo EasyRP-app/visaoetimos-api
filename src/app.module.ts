@@ -9,6 +9,7 @@ import { AppService } from './app.service';
 import { AccountPlansModule } from './modules/account-plans/account-plans.module';
 import { FinancesModule } from './modules/finances/finances.module';
 import { SuppliersAndCustomersModule } from './modules/suppliers-and-customers/suppliers-and-customers.module';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { SuppliersAndCustomersModule } from './modules/suppliers-and-customers/s
     SuppliersAndCustomersModule,
     AccountPlansModule,
     FinancesModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

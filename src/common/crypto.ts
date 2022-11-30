@@ -1,0 +1,9 @@
+import bcrypt from 'bcrypt';
+export const hashPasswordTransform = {
+  to(password: string): string {
+    return bcrypt.hashSync(password, 10);
+  },
+  from(hash: string): string {
+    return hash;
+  },
+};

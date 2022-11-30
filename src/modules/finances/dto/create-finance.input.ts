@@ -11,7 +11,7 @@ export class CreateFinanceInput {
   @Field()
   dueDate: Date;
   @IsOptional()
-  @Field()
+  @Field({ nullable: true })
   payDay?: Date;
   @Field(() => finaceStatusTypeEnum)
   status: finaceStatusTypeEnum;
@@ -19,7 +19,7 @@ export class CreateFinanceInput {
   value: number;
 
   @IsOptional()
-  @Field()
+  @Field({ nullable: true })
   comments?: string;
 
   @Field({ nullable: true })

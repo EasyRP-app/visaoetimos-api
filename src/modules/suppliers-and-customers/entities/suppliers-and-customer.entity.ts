@@ -18,7 +18,7 @@ export class SuppliersAndCustomer extends BaseEntity {
   @Column()
   address: string;
 
-  @OneToMany(() => Finance, (item) => item.SupplierAndCustomer, {
+  @OneToMany(() => Finance, (item) => item.supplierAndCustomer, {
     nullable: true,
   })
   finaces?: Finance[];

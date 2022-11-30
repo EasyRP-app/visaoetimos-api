@@ -187,6 +187,9 @@ input AddFinancesToSuppliersAndCustomerInput {
   relationIds: [ID!]!
 }
 
+"""Cursor for paging through collections"""
+scalar ConnectionCursor
+
 input CostTypeEnumFilterComparison {
   eq: costTypeEnum
   gt: costTypeEnum
@@ -212,10 +215,10 @@ input CreateAccountPlan {
 
 input CreateFinance {
   accountplanId: String
-  comments: String!
+  comments: String
   dueDate: DateTime!
   issuedate: DateTime!
-  payDay: DateTime!
+  payDay: DateTime
   paymentTerm: DateTime!
   status: finaceStatusTypeEnum!
   supplierAndCustomerId: String
@@ -237,6 +240,11 @@ input CreateManySuppliersAndCustomersInput {
   suppliersAndCustomers: [CreateSuppliersAndCustomer!]!
 }
 
+input CreateManyUsersInput {
+  """Array of records to create"""
+  users: [CreateUserInput!]!
+}
+
 input CreateOneAccountPlanInput {
   """The record to create"""
   accountPlan: CreateAccountPlan!
@@ -252,12 +260,36 @@ input CreateOneSuppliersAndCustomerInput {
   suppliersAndCustomer: CreateSuppliersAndCustomer!
 }
 
+input CreateOneUserInput {
+  """The record to create"""
+  user: CreateUserInput!
+}
+
 input CreateSuppliersAndCustomer {
   address: String!
   cpf: String!
   email: String!
   name: String!
   phone: String!
+}
+
+input CreateUserInput {
+  email: String!
+  name: String!
+}
+
+input CursorPaging {
+  """Paginate after opaque cursor"""
+  after: ConnectionCursor
+
+  """Paginate before opaque cursor"""
+  before: ConnectionCursor
+
+  """Paginate first"""
+  first: Int
+
+  """Paginate last"""
+  last: Int
 }
 
 input DateFieldComparison {
@@ -305,6 +337,11 @@ input DeleteManySuppliersAndCustomersInput {
   filter: SuppliersAndCustomerDeleteFilter!
 }
 
+input DeleteManyUsersInput {
+  """Filter to find records to delete"""
+  filter: UserDeleteFilter!
+}
+
 input DeleteOneAccountPlanInput {
   """The id of the record to delete."""
   id: ID!
@@ -316,6 +353,11 @@ input DeleteOneFinancesInput {
 }
 
 input DeleteOneSuppliersAndCustomerInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteOneUserInput {
   """The id of the record to delete."""
   id: ID!
 }
@@ -532,15 +574,21 @@ type Mutation {
   createManyAccountPlans(input: CreateManyAccountPlansInput!): [AccountPlan!]!
   createManyFinances(input: CreateManyFinancesInput!): [Finances!]!
   createManySuppliersAndCustomers(input: CreateManySuppliersAndCustomersInput!): [SuppliersAndCustomer!]!
+  createManyUsers(input: CreateManyUsersInput!): [User!]!
   createOneAccountPlan(input: CreateOneAccountPlanInput!): AccountPlan!
   createOneFinances(input: CreateOneFinancesInput!): Finances!
   createOneSuppliersAndCustomer(input: CreateOneSuppliersAndCustomerInput!): SuppliersAndCustomer!
+  createOneUser(input: CreateOneUserInput!): User!
+  createUser(data: CreateUserInput!): User!
   deleteManyAccountPlans(input: DeleteManyAccountPlansInput!): DeleteManyResponse!
   deleteManyFinances(input: DeleteManyFinancesInput!): DeleteManyResponse!
   deleteManySuppliersAndCustomers(input: DeleteManySuppliersAndCustomersInput!): DeleteManyResponse!
+  deleteManyUsers(input: DeleteManyUsersInput!): DeleteManyResponse!
   deleteOneAccountPlan(input: DeleteOneAccountPlanInput!): AccountPlanDeleteResponse!
   deleteOneFinances(input: DeleteOneFinancesInput!): FinancesDeleteResponse!
   deleteOneSuppliersAndCustomer(input: DeleteOneSuppliersAndCustomerInput!): SuppliersAndCustomerDeleteResponse!
+  deleteOneUser(input: DeleteOneUserInput!): UserDeleteResponse!
+  deleteUser(id: String!): Boolean!
   removeAccountplanFromFinances(input: RemoveAccountplanFromFinancesInput!): Finances!
   removeFinancesFromAccountPlan(input: RemoveFinancesFromAccountPlanInput!): AccountPlan!
   removeFinancesFromSuppliersAndCustomer(input: RemoveFinancesFromSuppliersAndCustomerInput!): SuppliersAndCustomer!
@@ -552,9 +600,12 @@ type Mutation {
   updateManyAccountPlans(input: UpdateManyAccountPlansInput!): UpdateManyResponse!
   updateManyFinances(input: UpdateManyFinancesInput!): UpdateManyResponse!
   updateManySuppliersAndCustomers(input: UpdateManySuppliersAndCustomersInput!): UpdateManyResponse!
+  updateManyUsers(input: UpdateManyUsersInput!): UpdateManyResponse!
   updateOneAccountPlan(input: UpdateOneAccountPlanInput!): AccountPlan!
   updateOneFinances(input: UpdateOneFinancesInput!): Finances!
   updateOneSuppliersAndCustomer(input: UpdateOneSuppliersAndCustomerInput!): SuppliersAndCustomer!
+  updateOneUser(input: UpdateOneUserInput!): User!
+  updateUser(data: UpdateUserInput!, id: String!): User!
 }
 
 input NumberFieldComparison {
@@ -591,6 +642,20 @@ input OffsetPaging {
 
   """Offset to start returning records from"""
   offset: Int
+}
+
+type PageInfo {
+  """The cursor of the last returned record."""
+  endCursor: ConnectionCursor
+
+  """true if paging forward and there are more records."""
+  hasNextPage: Boolean
+
+  """true if paging backwards and there are more records."""
+  hasPreviousPage: Boolean
+
+  """The cursor of the first returned record."""
+  startCursor: ConnectionCursor
 }
 
 type Query {
@@ -632,6 +697,21 @@ type Query {
     """Specify to sort results."""
     sorting: [SuppliersAndCustomerSort!] = []
   ): SuppliersAndCustomerConnection!
+  user(
+    """The id of the record to find."""
+    id: ID!
+  ): User
+  userByEmail(email: String!): User!
+  users(
+    """Specify to filter the records returned."""
+    filter: UserFilter = {}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [UserSort!] = []
+  ): UserConnection!
 }
 
 input RemoveAccountplanFromFinancesInput {
@@ -948,6 +1028,14 @@ input UpdateManySuppliersAndCustomersInput {
   update: UpdateSuppliersAndCustomerInput!
 }
 
+input UpdateManyUsersInput {
+  """Filter used to find fields to update"""
+  filter: UserUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateUserInput!
+}
+
 input UpdateOneAccountPlanInput {
   """The id of the record to update"""
   id: ID!
@@ -972,6 +1060,14 @@ input UpdateOneSuppliersAndCustomerInput {
   update: UpdateSuppliersAndCustomerInput!
 }
 
+input UpdateOneUserInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateUserInput!
+}
+
 input UpdateSuppliersAndCustomerInput {
   address: String
   cpf: String
@@ -979,6 +1075,131 @@ input UpdateSuppliersAndCustomerInput {
   id: ID
   name: String
   phone: String
+}
+
+input UpdateUserInput {
+  email: String
+  name: String
+}
+
+type User {
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String!
+  id: ID!
+  name: String!
+  password: String!
+  updatedAt: DateTime
+}
+
+type UserAggregateGroupBy {
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String
+  id: ID
+  name: String
+  updatedAt: DateTime
+}
+
+type UserConnection {
+  """Array of edges."""
+  edges: [UserEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
+type UserCountAggregate {
+  createdAt: Int
+  deletedAt: Int
+  email: Int
+  id: Int
+  name: Int
+  updatedAt: Int
+}
+
+input UserDeleteFilter {
+  and: [UserDeleteFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  email: StringFieldComparison
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [UserDeleteFilter!]
+  updatedAt: DateFieldComparison
+}
+
+type UserDeleteResponse {
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String
+  id: ID
+  name: String
+  password: String
+  updatedAt: DateTime
+}
+
+type UserEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the User"""
+  node: User!
+}
+
+input UserFilter {
+  and: [UserFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  email: StringFieldComparison
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [UserFilter!]
+  updatedAt: DateFieldComparison
+}
+
+type UserMaxAggregate {
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String
+  id: ID
+  name: String
+  updatedAt: DateTime
+}
+
+type UserMinAggregate {
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String
+  id: ID
+  name: String
+  updatedAt: DateTime
+}
+
+input UserSort {
+  direction: SortDirection!
+  field: UserSortFields!
+  nulls: SortNulls
+}
+
+enum UserSortFields {
+  createdAt
+  deletedAt
+  email
+  id
+  name
+  updatedAt
+}
+
+input UserUpdateFilter {
+  and: [UserUpdateFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  email: StringFieldComparison
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [UserUpdateFilter!]
+  updatedAt: DateFieldComparison
 }
 
 enum accountPlanTypeEnum {
