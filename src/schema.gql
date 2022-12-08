@@ -187,8 +187,14 @@ input AddFinancesToSuppliersAndCustomerInput {
   relationIds: [ID!]!
 }
 
-"""Cursor for paging through collections"""
-scalar ConnectionCursor
+type Auth {
+  user: User!
+}
+
+input AuthInput {
+  email: String!
+  password: String!
+}
 
 input CostTypeEnumFilterComparison {
   eq: costTypeEnum
@@ -276,20 +282,7 @@ input CreateSuppliersAndCustomer {
 input CreateUserInput {
   email: String!
   name: String!
-}
-
-input CursorPaging {
-  """Paginate after opaque cursor"""
-  after: ConnectionCursor
-
-  """Paginate before opaque cursor"""
-  before: ConnectionCursor
-
-  """Paginate first"""
-  first: Int
-
-  """Paginate last"""
-  last: Int
+  password: String!
 }
 
 input DateFieldComparison {
@@ -579,7 +572,6 @@ type Mutation {
   createOneFinances(input: CreateOneFinancesInput!): Finances!
   createOneSuppliersAndCustomer(input: CreateOneSuppliersAndCustomerInput!): SuppliersAndCustomer!
   createOneUser(input: CreateOneUserInput!): User!
-  createUser(data: CreateUserInput!): User!
   deleteManyAccountPlans(input: DeleteManyAccountPlansInput!): DeleteManyResponse!
   deleteManyFinances(input: DeleteManyFinancesInput!): DeleteManyResponse!
   deleteManySuppliersAndCustomers(input: DeleteManySuppliersAndCustomersInput!): DeleteManyResponse!
@@ -588,7 +580,7 @@ type Mutation {
   deleteOneFinances(input: DeleteOneFinancesInput!): FinancesDeleteResponse!
   deleteOneSuppliersAndCustomer(input: DeleteOneSuppliersAndCustomerInput!): SuppliersAndCustomerDeleteResponse!
   deleteOneUser(input: DeleteOneUserInput!): UserDeleteResponse!
-  deleteUser(id: String!): Boolean!
+  login(data: AuthInput!): Auth!
   removeAccountplanFromFinances(input: RemoveAccountplanFromFinancesInput!): Finances!
   removeFinancesFromAccountPlan(input: RemoveFinancesFromAccountPlanInput!): AccountPlan!
   removeFinancesFromSuppliersAndCustomer(input: RemoveFinancesFromSuppliersAndCustomerInput!): SuppliersAndCustomer!
@@ -605,7 +597,6 @@ type Mutation {
   updateOneFinances(input: UpdateOneFinancesInput!): Finances!
   updateOneSuppliersAndCustomer(input: UpdateOneSuppliersAndCustomerInput!): SuppliersAndCustomer!
   updateOneUser(input: UpdateOneUserInput!): User!
-  updateUser(data: UpdateUserInput!, id: String!): User!
 }
 
 input NumberFieldComparison {
@@ -642,20 +633,6 @@ input OffsetPaging {
 
   """Offset to start returning records from"""
   offset: Int
-}
-
-type PageInfo {
-  """The cursor of the last returned record."""
-  endCursor: ConnectionCursor
-
-  """true if paging forward and there are more records."""
-  hasNextPage: Boolean
-
-  """true if paging backwards and there are more records."""
-  hasPreviousPage: Boolean
-
-  """The cursor of the first returned record."""
-  startCursor: ConnectionCursor
 }
 
 type Query {
@@ -701,13 +678,12 @@ type Query {
     """The id of the record to find."""
     id: ID!
   ): User
-  userByEmail(email: String!): User!
   users(
     """Specify to filter the records returned."""
     filter: UserFilter = {}
 
     """Limit or page results."""
-    paging: CursorPaging = {first: 10}
+    paging: OffsetPaging = {limit: 10}
 
     """Specify to sort results."""
     sorting: [UserSort!] = []
@@ -1079,7 +1055,9 @@ input UpdateSuppliersAndCustomerInput {
 
 input UpdateUserInput {
   email: String
+  id: ID
   name: String
+  password: String
 }
 
 type User {
@@ -1102,11 +1080,11 @@ type UserAggregateGroupBy {
 }
 
 type UserConnection {
-  """Array of edges."""
-  edges: [UserEdge!]!
+  """Array of nodes."""
+  nodes: [User!]!
 
   """Paging information"""
-  pageInfo: PageInfo!
+  pageInfo: OffsetPageInfo!
 }
 
 type UserCountAggregate {
@@ -1137,14 +1115,6 @@ type UserDeleteResponse {
   name: String
   password: String
   updatedAt: DateTime
-}
-
-type UserEdge {
-  """Cursor for this node."""
-  cursor: ConnectionCursor!
-
-  """The node containing the User"""
-  node: User!
 }
 
 input UserFilter {
