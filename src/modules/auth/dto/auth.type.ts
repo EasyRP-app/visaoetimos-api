@@ -7,6 +7,7 @@ export class AuthType {
   @Field(() => UserDTO)
   user: User;
 
+  @Field()
   token: string;
 }
 
