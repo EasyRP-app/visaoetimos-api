@@ -1,7 +1,14 @@
+import {
+  FilterableField,
+  FilterableOffsetConnection,
+} from '@nestjs-query/query-graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { BaseDTO } from 'src/modules/bases/dto/base.dto';
-import { FilterableField } from '@nestjs-query/query-graphql';
+import { FinanceDTO } from 'src/modules/finances/dto/finance.dto';
 @ObjectType('SuppliersAndCustomer')
+@FilterableOffsetConnection('finances', () => FinanceDTO, {
+  nullable: true,
+})
 export class SuppliersAndCustomerDTO extends BaseDTO {
   @FilterableField({ nullable: true })
   name?: string;

@@ -6,7 +6,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AccountPlansModule } from './modules/account-plans/account-plans.module';
+import { AuthModule } from './modules/auth/auth.module';
+// import { AuthModule } from './modules/auth/auth.module';
+import { FinancesModule } from './modules/finances/finances.module';
 import { SuppliersAndCustomersModule } from './modules/suppliers-and-customers/suppliers-and-customers.module';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
@@ -37,6 +42,10 @@ import { SuppliersAndCustomersModule } from './modules/suppliers-and-customers/s
     }),
     ConfigModule.forRoot(),
     SuppliersAndCustomersModule,
+    AccountPlansModule,
+    FinancesModule,
+    UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

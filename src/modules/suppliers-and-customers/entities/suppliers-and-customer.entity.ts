@@ -1,5 +1,6 @@
 import { BaseEntity } from 'src/modules/bases/entities/base.entity';
-import { Column, Entity } from 'typeorm';
+import { Finance } from 'src/modules/finances/entities/finance.entity';
+import { Column, Entity, OneToMany } from 'typeorm';
 @Entity()
 export class SuppliersAndCustomer extends BaseEntity {
   @Column({ nullable: true })
@@ -16,4 +17,9 @@ export class SuppliersAndCustomer extends BaseEntity {
 
   @Column()
   address: string;
+
+  @OneToMany(() => Finance, (item) => item.supplierAndCustomer, {
+    nullable: true,
+  })
+  finaces?: Finance[];
 }
