@@ -23,5 +23,5 @@ export class AccountPlan extends BaseEntity {
   costType: costTypeEnum;
 
   @OneToMany(() => Finance, (item) => item.accountplan, { nullable: true })
-  finaces?: Finance[];
+  finances?: Finance[];
 }

@@ -8,6 +8,7 @@ import { CreateFinanceInput } from './dto/create-finance.input';
 import { FinanceDTO } from './dto/finance.dto';
 import { UpdateFinanceInput } from './dto/update-finance.input';
 import { Finance } from './entities/finance.entity';
+import { FinancesResolver } from './finances.resolver';
 import { FinancesService } from './finances.service';
 import { FinancesSubscriber } from './subscribers/finances.subscribe';
 
@@ -28,6 +29,6 @@ import { FinancesSubscriber } from './subscribers/finances.subscribe';
       ],
     }),
   ],
-  providers: [FinancesService, FinancesSubscriber],
+  providers: [FinancesService, FinancesSubscriber, FinancesResolver],
 })
 export class FinancesModule {}
