@@ -7,7 +7,7 @@ export class FinancesResolver {
   constructor(private financeService: FinancesService) {}
 
   @Query(() => [CashFlowGroupDTO])
-  async gerenareCashFlow(): Promise<CashFlowGroupDTO[]> {
+  async gerenateCashFlow(): Promise<CashFlowGroupDTO[]> {
     return this.financeService.gerenateCashFlow();
   }
 }

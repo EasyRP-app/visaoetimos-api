@@ -5,6 +5,7 @@ import {
 import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
 import { Module } from '@nestjs/common';
 
+import { AccountPlansResolver } from './account-plans.resolver';
 import { AccountPlansService } from './account-plans.service';
 import { AccountPlanDTO } from './dto/account-plan.dto';
 import { CreateAccountPlanInput } from './dto/create-account-plan.input';
@@ -28,6 +29,6 @@ import { AccountPlan } from './entities/account-plan.entity';
       ],
     }),
   ],
-  providers: [AccountPlansService],
+  providers: [AccountPlansService, AccountPlansResolver],
 })
 export class AccountPlansModule {}

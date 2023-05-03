@@ -88,7 +88,9 @@ input AccountPlanFilter {
 input AccountPlanFilterFinancesFilter {
   and: [AccountPlanFilterFinancesFilter!]
   createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
   dueDate: DateFieldComparison
+  id: IDFilterComparison
   issuedate: DateFieldComparison
   or: [AccountPlanFilterFinancesFilter!]
   payDay: DateFieldComparison
@@ -195,6 +197,16 @@ type Auth {
 input AuthInput {
   email: String!
   password: String!
+}
+
+type CashFlowData {
+  cashFlows: [AccountPlan!]!
+  type: String!
+}
+
+type CashFlowGroup {
+  cashFlows: [Finances!]!
+  type: String!
 }
 
 input CostTypeEnumFilterComparison {
@@ -376,7 +388,8 @@ input FinaceStatusTypeEnumFilterComparison {
 type Finances {
   accountplan: AccountPlan
   comments: String
-  createdAt: DateTime!
+  createdAt: DateTime
+  deletedAt: DateTime
   dueDate: DateTime!
   id: ID!
   issuedate: DateTime!
@@ -384,13 +397,15 @@ type Finances {
   paymentTerm: DateTime!
   status: finaceStatusTypeEnum!
   supplierAndCustomer: SuppliersAndCustomer
-  updatedAt: DateTime!
+  updatedAt: DateTime
   value: Float!
 }
 
 type FinancesAggregateGroupBy {
   createdAt: DateTime
+  deletedAt: DateTime
   dueDate: DateTime
+  id: ID
   issuedate: DateTime
   payDay: DateTime
   paymentTerm: DateTime
@@ -413,7 +428,9 @@ type FinancesConnection {
 
 type FinancesCountAggregate {
   createdAt: Int
+  deletedAt: Int
   dueDate: Int
+  id: Int
   issuedate: Int
   payDay: Int
   paymentTerm: Int
@@ -425,7 +442,9 @@ type FinancesCountAggregate {
 input FinancesDeleteFilter {
   and: [FinancesDeleteFilter!]
   createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
   dueDate: DateFieldComparison
+  id: IDFilterComparison
   issuedate: DateFieldComparison
   or: [FinancesDeleteFilter!]
   payDay: DateFieldComparison
@@ -438,6 +457,7 @@ input FinancesDeleteFilter {
 type FinancesDeleteResponse {
   comments: String
   createdAt: DateTime
+  deletedAt: DateTime
   dueDate: DateTime
   id: ID
   issuedate: DateTime
@@ -452,7 +472,9 @@ input FinancesFilter {
   accountplan: FinancesFilterAccountPlanFilter
   and: [FinancesFilter!]
   createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
   dueDate: DateFieldComparison
+  id: IDFilterComparison
   issuedate: DateFieldComparison
   or: [FinancesFilter!]
   payDay: DateFieldComparison
@@ -491,7 +513,9 @@ input FinancesFilterSuppliersAndCustomerFilter {
 
 type FinancesMaxAggregate {
   createdAt: DateTime
+  deletedAt: DateTime
   dueDate: DateTime
+  id: ID
   issuedate: DateTime
   payDay: DateTime
   paymentTerm: DateTime
@@ -502,7 +526,9 @@ type FinancesMaxAggregate {
 
 type FinancesMinAggregate {
   createdAt: DateTime
+  deletedAt: DateTime
   dueDate: DateTime
+  id: ID
   issuedate: DateTime
   payDay: DateTime
   paymentTerm: DateTime
@@ -519,7 +545,9 @@ input FinancesSort {
 
 enum FinancesSortFields {
   createdAt
+  deletedAt
   dueDate
+  id
   issuedate
   payDay
   paymentTerm
@@ -535,7 +563,9 @@ type FinancesSumAggregate {
 input FinancesUpdateFilter {
   and: [FinancesUpdateFilter!]
   createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
   dueDate: DateFieldComparison
+  id: IDFilterComparison
   issuedate: DateFieldComparison
   or: [FinancesUpdateFilter!]
   payDay: DateFieldComparison
@@ -661,6 +691,8 @@ type Query {
     """Specify to sort results."""
     sorting: [FinancesSort!] = []
   ): FinancesConnection!
+  gerenateCashFlow: [CashFlowGroup!]!
+  gerenateCashFlowByAccount: [CashFlowData!]!
   isTokenValid(token: String!): TokenValidType!
   me: User!
   suppliersAndCustomer(
@@ -884,7 +916,9 @@ input SuppliersAndCustomerFilter {
 input SuppliersAndCustomerFilterFinancesFilter {
   and: [SuppliersAndCustomerFilterFinancesFilter!]
   createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
   dueDate: DateFieldComparison
+  id: IDFilterComparison
   issuedate: DateFieldComparison
   or: [SuppliersAndCustomerFilterFinancesFilter!]
   payDay: DateFieldComparison
