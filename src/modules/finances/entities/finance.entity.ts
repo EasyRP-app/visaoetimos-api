@@ -25,7 +25,7 @@ export class Finance extends BaseEntity {
   accountplan?: AccountPlan;
 
   @ManyToOne(() => SuppliersAndCustomer)
-  SupplierAndCustomer?: SuppliersAndCustomer;
+  supplierAndCustomer?: SuppliersAndCustomer;
 
   @Column({ nullable: true })
   accountplanId?: string;
