@@ -43,6 +43,7 @@ import { UsersModule } from './modules/users/users.module';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
+      playground: !!process.env.PLAYGROUND,
     }),
     ConfigModule.forRoot(),
     SuppliersAndCustomersModule,
