@@ -691,7 +691,7 @@ type Query {
     """Specify to sort results."""
     sorting: [FinancesSort!] = []
   ): FinancesConnection!
-  gerenateCashFlow: [CashFlowGroup!]!
+  gerenateCashFlow(year: String): [CashFlowGroup!]!
   gerenateCashFlowByAccount: [CashFlowData!]!
   isTokenValid(token: String!): TokenValidType!
   me: User!
