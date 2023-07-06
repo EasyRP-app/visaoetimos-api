@@ -1,4 +1,4 @@
-import { Query, Resolver } from '@nestjs/graphql';
+import { Args, Query, Resolver } from '@nestjs/graphql';
 import { CashFlowGroupDTO } from './dto/cashFlow.dto';
 import { FinancesService } from './finances.service';
 
@@ -7,7 +7,10 @@ export class FinancesResolver {
   constructor(private financeService: FinancesService) {}
 
   @Query(() => [CashFlowGroupDTO])
-  async gerenateCashFlow(): Promise<CashFlowGroupDTO[]> {
-    return this.financeService.gerenateCashFlow();
+  async gerenateCashFlow(
+    @Args({ name: 'year', type: () => String, nullable: true })
+    year: string,
+  ): Promise<CashFlowGroupDTO[]> {
+    return this.financeService.gerenateCashFlow(year);
   }
 }

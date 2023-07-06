@@ -17,38 +17,29 @@ export class FinancesService extends TypeOrmQueryService<Finance> {
     super(repository, { useSoftDelete: true });
   }
 
-  // async gerenareCashFlow(): Promise<CashFlowGroupDTO[]> {
-  //   const finances = await this.repository
-  //     .createQueryBuilder('finances')
-  //     .innerJoin('finances.accountplan', 'accountplan')
-  //     .addSelect('accountplan.accountPlanType')
+  async gerenateCashFlow(year?: string): Promise<CashFlowGroupDTO[]> {
+    let finances = await this.repository.find({
+      relations: ['accountplan'],
+    });
 
-  //     .getMany();
+    if (year) {
+      finances = finances.filter((finance) => {
+        return finance.issuedate.getFullYear() === Number(year);
+      });
+    }
 
-  //   const arr = [];
-  //   const orderedData = groupBy(finances, 'accountplan.accountPlanType');
-  //   Object.keys(orderedData).forEach((key) => {
-  //     arr.push(orderedData[key]);
-  //   });
-  //   console.log(arr.map());
-  //   return arr;
-  // }
-
-  async gerenateCashFlow(): Promise<CashFlowGroupDTO[]> {
-    const finances = await this.repository.find({ relations: ['accountplan'] });
-
-    const groupedFinances = finances.reduce((acc, data) => {
+    const groupedFinances = await finances.reduce((acc, data) => {
       const { accountPlanType } = data.accountplan;
 
       if (!acc[accountPlanType]) {
         acc[accountPlanType] = [];
       }
+
       acc[accountPlanType].push(data);
       return acc;
     }, {} as Record<string, Finance[]>);
 
     const data = Object.entries(groupedFinances).map((value) => {
-      console.log(value);
       return {
         type: value[0],
         cashFlows: value[1],
