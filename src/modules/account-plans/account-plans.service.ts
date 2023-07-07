@@ -19,8 +19,22 @@ export class AccountPlansService extends TypeOrmQueryService<AccountPlan> {
     super(repository, { useSoftDelete: true });
   }
 
-  async gerenateCashFlowByAccount(): Promise<CashFlowDataDTO[]> {
-    const finances = await this.repository.find({ relations: ['finances'] });
+  async gerenateCashFlowByAccount(year?: string): Promise<CashFlowDataDTO[]> {
+    const x = await this.repository.find({ relations: ['finances'] });
+    let finances: AccountPlan[] = [];
+
+    if (year) {
+      finances = x.map((finance) => {
+        finance.finances = finance.finances.filter((fin) => {
+          return fin.issuedate.getFullYear() === Number(year);
+        });
+
+        return finance;
+      });
+    } else {
+      console.log('else');
+      finances = x;
+    }
 
     const groupedFinances = finances.reduce((acc, data) => {
       const { accountPlanType } = data;
@@ -32,14 +46,13 @@ export class AccountPlansService extends TypeOrmQueryService<AccountPlan> {
       return acc;
     }, {} as Record<string, AccountPlan[]>);
 
-    const data = Object.entries(groupedFinances).map((value) => {
-      console.log(value);
+    const data2 = Object.entries(groupedFinances).map((value) => {
       return {
         type: value[0],
         cashFlows: value[1],
       };
     });
 
-    return data;
+    return data2;
   }
 }

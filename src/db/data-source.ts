@@ -9,7 +9,7 @@ export const AppDataSource: DataSourceOptions = {
   database: process.env.TYPEORM_DATABASE,
   // entities: [process.env.TYPEORM_ENTITIES],
   synchronize: process.env.TYPEORM_SYNCHRONIZE == 'true',
-  logging: !!process.env.TYPEORM_LOGGING,
+  logging: false,
   entities: ['dist/**/*.entity{.ts,.js}'],
   migrations: ['dist/**/migration/*.js'],
   subscribers: ['dist/**/**.subscriber{.ts,.js}'],
