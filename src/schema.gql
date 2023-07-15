@@ -1,0 +1,1229 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type AccountPlan {
+  accountPlanType: accountPlanTypeEnum!
+  costType: costTypeEnum!
+  createdAt: DateTime
+  deletedAt: DateTime
+  finances(
+    """Specify to filter the records returned."""
+    filter: FinancesFilter = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [FinancesSort!] = []
+  ): AccountPlanFinancesConnection
+  id: ID!
+  name: String!
+  updatedAt: DateTime
+}
+
+type AccountPlanAggregateGroupBy {
+  accountPlanType: accountPlanTypeEnum
+  costType: costTypeEnum
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  name: String
+  updatedAt: DateTime
+}
+
+type AccountPlanConnection {
+  """Array of nodes."""
+  nodes: [AccountPlan!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+}
+
+type AccountPlanCountAggregate {
+  accountPlanType: Int
+  costType: Int
+  createdAt: Int
+  deletedAt: Int
+  id: Int
+  name: Int
+  updatedAt: Int
+}
+
+input AccountPlanDeleteFilter {
+  accountPlanType: AccountPlanTypeEnumFilterComparison
+  and: [AccountPlanDeleteFilter!]
+  costType: CostTypeEnumFilterComparison
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [AccountPlanDeleteFilter!]
+  updatedAt: DateFieldComparison
+}
+
+type AccountPlanDeleteResponse {
+  accountPlanType: accountPlanTypeEnum
+  costType: costTypeEnum
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  name: String
+  updatedAt: DateTime
+}
+
+input AccountPlanFilter {
+  accountPlanType: AccountPlanTypeEnumFilterComparison
+  and: [AccountPlanFilter!]
+  costType: CostTypeEnumFilterComparison
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  finances: AccountPlanFilterFinancesFilter
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [AccountPlanFilter!]
+  updatedAt: DateFieldComparison
+}
+
+input AccountPlanFilterFinancesFilter {
+  and: [AccountPlanFilterFinancesFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  dueDate: DateFieldComparison
+  id: IDFilterComparison
+  issuedate: DateFieldComparison
+  or: [AccountPlanFilterFinancesFilter!]
+  payDay: DateFieldComparison
+  paymentTerm: DateFieldComparison
+  status: FinaceStatusTypeEnumFilterComparison
+  updatedAt: DateFieldComparison
+  value: NumberFieldComparison
+}
+
+type AccountPlanFinancesConnection {
+  """Array of nodes."""
+  nodes: [Finances!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+}
+
+type AccountPlanMaxAggregate {
+  accountPlanType: accountPlanTypeEnum
+  costType: costTypeEnum
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  name: String
+  updatedAt: DateTime
+}
+
+type AccountPlanMinAggregate {
+  accountPlanType: accountPlanTypeEnum
+  costType: costTypeEnum
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: ID
+  name: String
+  updatedAt: DateTime
+}
+
+input AccountPlanSort {
+  direction: SortDirection!
+  field: AccountPlanSortFields!
+  nulls: SortNulls
+}
+
+enum AccountPlanSortFields {
+  accountPlanType
+  costType
+  createdAt
+  deletedAt
+  id
+  name
+  updatedAt
+}
+
+input AccountPlanTypeEnumFilterComparison {
+  eq: accountPlanTypeEnum
+  gt: accountPlanTypeEnum
+  gte: accountPlanTypeEnum
+  iLike: accountPlanTypeEnum
+  in: [accountPlanTypeEnum!]
+  is: Boolean
+  isNot: Boolean
+  like: accountPlanTypeEnum
+  lt: accountPlanTypeEnum
+  lte: accountPlanTypeEnum
+  neq: accountPlanTypeEnum
+  notILike: accountPlanTypeEnum
+  notIn: [accountPlanTypeEnum!]
+  notLike: accountPlanTypeEnum
+}
+
+input AccountPlanUpdateFilter {
+  accountPlanType: AccountPlanTypeEnumFilterComparison
+  and: [AccountPlanUpdateFilter!]
+  costType: CostTypeEnumFilterComparison
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [AccountPlanUpdateFilter!]
+  updatedAt: DateFieldComparison
+}
+
+input AddFinancesToAccountPlanInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input AddFinancesToSuppliersAndCustomerInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+type Auth {
+  token: String!
+  user: User!
+}
+
+input AuthInput {
+  email: String!
+  password: String!
+}
+
+type CashFlowData {
+  cashFlows: [AccountPlan!]!
+  type: String!
+}
+
+type CashFlowGroup {
+  cashFlows: [Finances!]!
+  type: String!
+}
+
+input CostTypeEnumFilterComparison {
+  eq: costTypeEnum
+  gt: costTypeEnum
+  gte: costTypeEnum
+  iLike: costTypeEnum
+  in: [costTypeEnum!]
+  is: Boolean
+  isNot: Boolean
+  like: costTypeEnum
+  lt: costTypeEnum
+  lte: costTypeEnum
+  neq: costTypeEnum
+  notILike: costTypeEnum
+  notIn: [costTypeEnum!]
+  notLike: costTypeEnum
+}
+
+input CreateAccountPlan {
+  accountPlanType: accountPlanTypeEnum!
+  costType: costTypeEnum!
+  name: String!
+}
+
+input CreateFinance {
+  accountplanId: String
+  comments: String
+  dueDate: DateTime!
+  issuedate: DateTime!
+  payDay: DateTime
+  paymentTerm: DateTime!
+  status: finaceStatusTypeEnum!
+  supplierAndCustomerId: String
+  value: Float!
+}
+
+input CreateManyAccountPlansInput {
+  """Array of records to create"""
+  accountPlans: [CreateAccountPlan!]!
+}
+
+input CreateManyFinancesInput {
+  """Array of records to create"""
+  finances: [CreateFinance!]!
+}
+
+input CreateManySuppliersAndCustomersInput {
+  """Array of records to create"""
+  suppliersAndCustomers: [CreateSuppliersAndCustomer!]!
+}
+
+input CreateManyUsersInput {
+  """Array of records to create"""
+  users: [CreateUserInput!]!
+}
+
+input CreateOneAccountPlanInput {
+  """The record to create"""
+  accountPlan: CreateAccountPlan!
+}
+
+input CreateOneFinancesInput {
+  """The record to create"""
+  finances: CreateFinance!
+}
+
+input CreateOneSuppliersAndCustomerInput {
+  """The record to create"""
+  suppliersAndCustomer: CreateSuppliersAndCustomer!
+}
+
+input CreateOneUserInput {
+  """The record to create"""
+  user: CreateUserInput!
+}
+
+input CreateSuppliersAndCustomer {
+  address: String!
+  cpf: String!
+  email: String!
+  name: String!
+  phone: String!
+}
+
+input CreateUserInput {
+  email: String!
+  name: String!
+  password: String!
+}
+
+input DateFieldComparison {
+  between: DateFieldComparisonBetween
+  eq: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  is: Boolean
+  isNot: Boolean
+  lt: DateTime
+  lte: DateTime
+  neq: DateTime
+  notBetween: DateFieldComparisonBetween
+  notIn: [DateTime!]
+}
+
+input DateFieldComparisonBetween {
+  lower: DateTime!
+  upper: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input DeleteManyAccountPlansInput {
+  """Filter to find records to delete"""
+  filter: AccountPlanDeleteFilter!
+}
+
+input DeleteManyFinancesInput {
+  """Filter to find records to delete"""
+  filter: FinancesDeleteFilter!
+}
+
+type DeleteManyResponse {
+  """The number of records deleted."""
+  deletedCount: Int!
+}
+
+input DeleteManySuppliersAndCustomersInput {
+  """Filter to find records to delete"""
+  filter: SuppliersAndCustomerDeleteFilter!
+}
+
+input DeleteManyUsersInput {
+  """Filter to find records to delete"""
+  filter: UserDeleteFilter!
+}
+
+input DeleteOneAccountPlanInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteOneFinancesInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteOneSuppliersAndCustomerInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteOneUserInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input FinaceStatusTypeEnumFilterComparison {
+  eq: finaceStatusTypeEnum
+  gt: finaceStatusTypeEnum
+  gte: finaceStatusTypeEnum
+  iLike: finaceStatusTypeEnum
+  in: [finaceStatusTypeEnum!]
+  is: Boolean
+  isNot: Boolean
+  like: finaceStatusTypeEnum
+  lt: finaceStatusTypeEnum
+  lte: finaceStatusTypeEnum
+  neq: finaceStatusTypeEnum
+  notILike: finaceStatusTypeEnum
+  notIn: [finaceStatusTypeEnum!]
+  notLike: finaceStatusTypeEnum
+}
+
+type Finances {
+  accountplan: AccountPlan
+  comments: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  dueDate: DateTime!
+  id: ID!
+  issuedate: DateTime!
+  payDay: DateTime
+  paymentTerm: DateTime!
+  status: finaceStatusTypeEnum!
+  supplierAndCustomer: SuppliersAndCustomer
+  updatedAt: DateTime
+  value: Float!
+}
+
+type FinancesAggregateGroupBy {
+  createdAt: DateTime
+  deletedAt: DateTime
+  dueDate: DateTime
+  id: ID
+  issuedate: DateTime
+  payDay: DateTime
+  paymentTerm: DateTime
+  status: finaceStatusTypeEnum
+  updatedAt: DateTime
+  value: Float
+}
+
+type FinancesAvgAggregate {
+  value: Float
+}
+
+type FinancesConnection {
+  """Array of nodes."""
+  nodes: [Finances!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+}
+
+type FinancesCountAggregate {
+  createdAt: Int
+  deletedAt: Int
+  dueDate: Int
+  id: Int
+  issuedate: Int
+  payDay: Int
+  paymentTerm: Int
+  status: Int
+  updatedAt: Int
+  value: Int
+}
+
+input FinancesDeleteFilter {
+  and: [FinancesDeleteFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  dueDate: DateFieldComparison
+  id: IDFilterComparison
+  issuedate: DateFieldComparison
+  or: [FinancesDeleteFilter!]
+  payDay: DateFieldComparison
+  paymentTerm: DateFieldComparison
+  status: FinaceStatusTypeEnumFilterComparison
+  updatedAt: DateFieldComparison
+  value: NumberFieldComparison
+}
+
+type FinancesDeleteResponse {
+  comments: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  dueDate: DateTime
+  id: ID
+  issuedate: DateTime
+  payDay: DateTime
+  paymentTerm: DateTime
+  status: finaceStatusTypeEnum
+  updatedAt: DateTime
+  value: Float
+}
+
+input FinancesFilter {
+  accountplan: FinancesFilterAccountPlanFilter
+  and: [FinancesFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  dueDate: DateFieldComparison
+  id: IDFilterComparison
+  issuedate: DateFieldComparison
+  or: [FinancesFilter!]
+  payDay: DateFieldComparison
+  paymentTerm: DateFieldComparison
+  status: FinaceStatusTypeEnumFilterComparison
+  supplierAndCustomer: FinancesFilterSuppliersAndCustomerFilter
+  updatedAt: DateFieldComparison
+  value: NumberFieldComparison
+}
+
+input FinancesFilterAccountPlanFilter {
+  accountPlanType: AccountPlanTypeEnumFilterComparison
+  and: [FinancesFilterAccountPlanFilter!]
+  costType: CostTypeEnumFilterComparison
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [FinancesFilterAccountPlanFilter!]
+  updatedAt: DateFieldComparison
+}
+
+input FinancesFilterSuppliersAndCustomerFilter {
+  address: StringFieldComparison
+  and: [FinancesFilterSuppliersAndCustomerFilter!]
+  cpf: StringFieldComparison
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  email: StringFieldComparison
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [FinancesFilterSuppliersAndCustomerFilter!]
+  phone: StringFieldComparison
+  updatedAt: DateFieldComparison
+}
+
+type FinancesMaxAggregate {
+  createdAt: DateTime
+  deletedAt: DateTime
+  dueDate: DateTime
+  id: ID
+  issuedate: DateTime
+  payDay: DateTime
+  paymentTerm: DateTime
+  status: finaceStatusTypeEnum
+  updatedAt: DateTime
+  value: Float
+}
+
+type FinancesMinAggregate {
+  createdAt: DateTime
+  deletedAt: DateTime
+  dueDate: DateTime
+  id: ID
+  issuedate: DateTime
+  payDay: DateTime
+  paymentTerm: DateTime
+  status: finaceStatusTypeEnum
+  updatedAt: DateTime
+  value: Float
+}
+
+input FinancesSort {
+  direction: SortDirection!
+  field: FinancesSortFields!
+  nulls: SortNulls
+}
+
+enum FinancesSortFields {
+  createdAt
+  deletedAt
+  dueDate
+  id
+  issuedate
+  payDay
+  paymentTerm
+  status
+  updatedAt
+  value
+}
+
+type FinancesSumAggregate {
+  value: Float
+}
+
+input FinancesUpdateFilter {
+  and: [FinancesUpdateFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  dueDate: DateFieldComparison
+  id: IDFilterComparison
+  issuedate: DateFieldComparison
+  or: [FinancesUpdateFilter!]
+  payDay: DateFieldComparison
+  paymentTerm: DateFieldComparison
+  status: FinaceStatusTypeEnumFilterComparison
+  updatedAt: DateFieldComparison
+  value: NumberFieldComparison
+}
+
+input IDFilterComparison {
+  eq: ID
+  gt: ID
+  gte: ID
+  iLike: ID
+  in: [ID!]
+  is: Boolean
+  isNot: Boolean
+  like: ID
+  lt: ID
+  lte: ID
+  neq: ID
+  notILike: ID
+  notIn: [ID!]
+  notLike: ID
+}
+
+type Mutation {
+  addFinancesToAccountPlan(input: AddFinancesToAccountPlanInput!): AccountPlan!
+  addFinancesToSuppliersAndCustomer(input: AddFinancesToSuppliersAndCustomerInput!): SuppliersAndCustomer!
+  createManyAccountPlans(input: CreateManyAccountPlansInput!): [AccountPlan!]!
+  createManyFinances(input: CreateManyFinancesInput!): [Finances!]!
+  createManySuppliersAndCustomers(input: CreateManySuppliersAndCustomersInput!): [SuppliersAndCustomer!]!
+  createManyUsers(input: CreateManyUsersInput!): [User!]!
+  createOneAccountPlan(input: CreateOneAccountPlanInput!): AccountPlan!
+  createOneFinances(input: CreateOneFinancesInput!): Finances!
+  createOneSuppliersAndCustomer(input: CreateOneSuppliersAndCustomerInput!): SuppliersAndCustomer!
+  createOneUser(input: CreateOneUserInput!): User!
+  deleteManyAccountPlans(input: DeleteManyAccountPlansInput!): DeleteManyResponse!
+  deleteManyFinances(input: DeleteManyFinancesInput!): DeleteManyResponse!
+  deleteManySuppliersAndCustomers(input: DeleteManySuppliersAndCustomersInput!): DeleteManyResponse!
+  deleteManyUsers(input: DeleteManyUsersInput!): DeleteManyResponse!
+  deleteOneAccountPlan(input: DeleteOneAccountPlanInput!): AccountPlanDeleteResponse!
+  deleteOneFinances(input: DeleteOneFinancesInput!): FinancesDeleteResponse!
+  deleteOneSuppliersAndCustomer(input: DeleteOneSuppliersAndCustomerInput!): SuppliersAndCustomerDeleteResponse!
+  deleteOneUser(input: DeleteOneUserInput!): UserDeleteResponse!
+  login(data: AuthInput!): Auth!
+  removeAccountplanFromFinances(input: RemoveAccountplanFromFinancesInput!): Finances!
+  removeFinancesFromAccountPlan(input: RemoveFinancesFromAccountPlanInput!): AccountPlan!
+  removeFinancesFromSuppliersAndCustomer(input: RemoveFinancesFromSuppliersAndCustomerInput!): SuppliersAndCustomer!
+  removeSupplierAndCustomerFromFinances(input: RemoveSupplierAndCustomerFromFinancesInput!): Finances!
+  setAccountplanOnFinances(input: SetAccountplanOnFinancesInput!): Finances!
+  setFinancesOnAccountPlan(input: SetFinancesOnAccountPlanInput!): AccountPlan!
+  setFinancesOnSuppliersAndCustomer(input: SetFinancesOnSuppliersAndCustomerInput!): SuppliersAndCustomer!
+  setSupplierAndCustomerOnFinances(input: SetSupplierAndCustomerOnFinancesInput!): Finances!
+  updateManyAccountPlans(input: UpdateManyAccountPlansInput!): UpdateManyResponse!
+  updateManyFinances(input: UpdateManyFinancesInput!): UpdateManyResponse!
+  updateManySuppliersAndCustomers(input: UpdateManySuppliersAndCustomersInput!): UpdateManyResponse!
+  updateManyUsers(input: UpdateManyUsersInput!): UpdateManyResponse!
+  updateOneAccountPlan(input: UpdateOneAccountPlanInput!): AccountPlan!
+  updateOneFinances(input: UpdateOneFinancesInput!): Finances!
+  updateOneSuppliersAndCustomer(input: UpdateOneSuppliersAndCustomerInput!): SuppliersAndCustomer!
+  updateOneUser(input: UpdateOneUserInput!): User!
+}
+
+input NumberFieldComparison {
+  between: NumberFieldComparisonBetween
+  eq: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  is: Boolean
+  isNot: Boolean
+  lt: Float
+  lte: Float
+  neq: Float
+  notBetween: NumberFieldComparisonBetween
+  notIn: [Float!]
+}
+
+input NumberFieldComparisonBetween {
+  lower: Float!
+  upper: Float!
+}
+
+type OffsetPageInfo {
+  """true if paging forward and there are more records."""
+  hasNextPage: Boolean
+
+  """true if paging backwards and there are more records."""
+  hasPreviousPage: Boolean
+}
+
+input OffsetPaging {
+  """Limit the number of records returned"""
+  limit: Int
+
+  """Offset to start returning records from"""
+  offset: Int
+}
+
+type Query {
+  accountPlan(
+    """The id of the record to find."""
+    id: ID!
+  ): AccountPlan
+  accountPlans(
+    """Specify to filter the records returned."""
+    filter: AccountPlanFilter = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [AccountPlanSort!] = []
+  ): AccountPlanConnection!
+  finances(
+    """Specify to filter the records returned."""
+    filter: FinancesFilter = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [FinancesSort!] = []
+  ): FinancesConnection!
+  gerenateCashFlow(year: String): [CashFlowGroup!]!
+  gerenateCashFlowByAccount: [CashFlowData!]!
+  isTokenValid(token: String!): TokenValidType!
+  me: User!
+  suppliersAndCustomer(
+    """The id of the record to find."""
+    id: ID!
+  ): SuppliersAndCustomer
+  suppliersAndCustomers(
+    """Specify to filter the records returned."""
+    filter: SuppliersAndCustomerFilter = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [SuppliersAndCustomerSort!] = []
+  ): SuppliersAndCustomerConnection!
+  user(
+    """The id of the record to find."""
+    id: ID!
+  ): User
+  users(
+    """Specify to filter the records returned."""
+    filter: UserFilter = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [UserSort!] = []
+  ): UserConnection!
+}
+
+input RemoveAccountplanFromFinancesInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input RemoveFinancesFromAccountPlanInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input RemoveFinancesFromSuppliersAndCustomerInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input RemoveSupplierAndCustomerFromFinancesInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input SetAccountplanOnFinancesInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input SetFinancesOnAccountPlanInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input SetFinancesOnSuppliersAndCustomerInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input SetSupplierAndCustomerOnFinancesInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+"""Sort Directions"""
+enum SortDirection {
+  ASC
+  DESC
+}
+
+"""Sort Nulls Options"""
+enum SortNulls {
+  NULLS_FIRST
+  NULLS_LAST
+}
+
+input StringFieldComparison {
+  eq: String
+  gt: String
+  gte: String
+  iLike: String
+  in: [String!]
+  is: Boolean
+  isNot: Boolean
+  like: String
+  lt: String
+  lte: String
+  neq: String
+  notILike: String
+  notIn: [String!]
+  notLike: String
+}
+
+type SuppliersAndCustomer {
+  address: String!
+  cpf: String!
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String
+  finances(
+    """Specify to filter the records returned."""
+    filter: FinancesFilter = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [FinancesSort!] = []
+  ): SuppliersAndCustomerFinancesConnection
+  id: ID!
+  name: String
+  phone: String!
+  updatedAt: DateTime
+}
+
+type SuppliersAndCustomerAggregateGroupBy {
+  address: String
+  cpf: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String
+  id: ID
+  name: String
+  phone: String
+  updatedAt: DateTime
+}
+
+type SuppliersAndCustomerConnection {
+  """Array of nodes."""
+  nodes: [SuppliersAndCustomer!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+}
+
+type SuppliersAndCustomerCountAggregate {
+  address: Int
+  cpf: Int
+  createdAt: Int
+  deletedAt: Int
+  email: Int
+  id: Int
+  name: Int
+  phone: Int
+  updatedAt: Int
+}
+
+input SuppliersAndCustomerDeleteFilter {
+  address: StringFieldComparison
+  and: [SuppliersAndCustomerDeleteFilter!]
+  cpf: StringFieldComparison
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  email: StringFieldComparison
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [SuppliersAndCustomerDeleteFilter!]
+  phone: StringFieldComparison
+  updatedAt: DateFieldComparison
+}
+
+type SuppliersAndCustomerDeleteResponse {
+  address: String
+  cpf: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String
+  id: ID
+  name: String
+  phone: String
+  updatedAt: DateTime
+}
+
+input SuppliersAndCustomerFilter {
+  address: StringFieldComparison
+  and: [SuppliersAndCustomerFilter!]
+  cpf: StringFieldComparison
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  email: StringFieldComparison
+  finances: SuppliersAndCustomerFilterFinancesFilter
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [SuppliersAndCustomerFilter!]
+  phone: StringFieldComparison
+  updatedAt: DateFieldComparison
+}
+
+input SuppliersAndCustomerFilterFinancesFilter {
+  and: [SuppliersAndCustomerFilterFinancesFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  dueDate: DateFieldComparison
+  id: IDFilterComparison
+  issuedate: DateFieldComparison
+  or: [SuppliersAndCustomerFilterFinancesFilter!]
+  payDay: DateFieldComparison
+  paymentTerm: DateFieldComparison
+  status: FinaceStatusTypeEnumFilterComparison
+  updatedAt: DateFieldComparison
+  value: NumberFieldComparison
+}
+
+type SuppliersAndCustomerFinancesConnection {
+  """Array of nodes."""
+  nodes: [Finances!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+}
+
+type SuppliersAndCustomerMaxAggregate {
+  address: String
+  cpf: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String
+  id: ID
+  name: String
+  phone: String
+  updatedAt: DateTime
+}
+
+type SuppliersAndCustomerMinAggregate {
+  address: String
+  cpf: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String
+  id: ID
+  name: String
+  phone: String
+  updatedAt: DateTime
+}
+
+input SuppliersAndCustomerSort {
+  direction: SortDirection!
+  field: SuppliersAndCustomerSortFields!
+  nulls: SortNulls
+}
+
+enum SuppliersAndCustomerSortFields {
+  address
+  cpf
+  createdAt
+  deletedAt
+  email
+  id
+  name
+  phone
+  updatedAt
+}
+
+input SuppliersAndCustomerUpdateFilter {
+  address: StringFieldComparison
+  and: [SuppliersAndCustomerUpdateFilter!]
+  cpf: StringFieldComparison
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  email: StringFieldComparison
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [SuppliersAndCustomerUpdateFilter!]
+  phone: StringFieldComparison
+  updatedAt: DateFieldComparison
+}
+
+type TokenValidType {
+  valid: Boolean!
+}
+
+input UpdateAccountPlanInput {
+  accountPlanType: accountPlanTypeEnum
+  costType: costTypeEnum
+  id: ID
+  name: String
+}
+
+input UpdateFinanceInput {
+  accountplanId: String
+  comments: String
+  dueDate: DateTime
+  id: ID
+  issuedate: DateTime
+  payDay: DateTime
+  paymentTerm: DateTime
+  status: finaceStatusTypeEnum
+  supplierAndCustomerId: String
+  value: Float
+}
+
+input UpdateManyAccountPlansInput {
+  """Filter used to find fields to update"""
+  filter: AccountPlanUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateAccountPlanInput!
+}
+
+input UpdateManyFinancesInput {
+  """Filter used to find fields to update"""
+  filter: FinancesUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateFinanceInput!
+}
+
+type UpdateManyResponse {
+  """The number of records updated."""
+  updatedCount: Int!
+}
+
+input UpdateManySuppliersAndCustomersInput {
+  """Filter used to find fields to update"""
+  filter: SuppliersAndCustomerUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateSuppliersAndCustomerInput!
+}
+
+input UpdateManyUsersInput {
+  """Filter used to find fields to update"""
+  filter: UserUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateUserInput!
+}
+
+input UpdateOneAccountPlanInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateAccountPlanInput!
+}
+
+input UpdateOneFinancesInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateFinanceInput!
+}
+
+input UpdateOneSuppliersAndCustomerInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateSuppliersAndCustomerInput!
+}
+
+input UpdateOneUserInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateUserInput!
+}
+
+input UpdateSuppliersAndCustomerInput {
+  address: String
+  cpf: String
+  email: String
+  id: ID
+  name: String
+  phone: String
+}
+
+input UpdateUserInput {
+  email: String
+  id: ID
+  name: String
+  password: String
+}
+
+type User {
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String!
+  id: ID!
+  name: String!
+  password: String!
+  updatedAt: DateTime
+}
+
+type UserAggregateGroupBy {
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String
+  id: ID
+  name: String
+  updatedAt: DateTime
+}
+
+type UserConnection {
+  """Array of nodes."""
+  nodes: [User!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+}
+
+type UserCountAggregate {
+  createdAt: Int
+  deletedAt: Int
+  email: Int
+  id: Int
+  name: Int
+  updatedAt: Int
+}
+
+input UserDeleteFilter {
+  and: [UserDeleteFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  email: StringFieldComparison
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [UserDeleteFilter!]
+  updatedAt: DateFieldComparison
+}
+
+type UserDeleteResponse {
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String
+  id: ID
+  name: String
+  password: String
+  updatedAt: DateTime
+}
+
+input UserFilter {
+  and: [UserFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  email: StringFieldComparison
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [UserFilter!]
+  updatedAt: DateFieldComparison
+}
+
+type UserMaxAggregate {
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String
+  id: ID
+  name: String
+  updatedAt: DateTime
+}
+
+type UserMinAggregate {
+  createdAt: DateTime
+  deletedAt: DateTime
+  email: String
+  id: ID
+  name: String
+  updatedAt: DateTime
+}
+
+input UserSort {
+  direction: SortDirection!
+  field: UserSortFields!
+  nulls: SortNulls
+}
+
+enum UserSortFields {
+  createdAt
+  deletedAt
+  email
+  id
+  name
+  updatedAt
+}
+
+input UserUpdateFilter {
+  and: [UserUpdateFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  email: StringFieldComparison
+  id: IDFilterComparison
+  name: StringFieldComparison
+  or: [UserUpdateFilter!]
+  updatedAt: DateFieldComparison
+}
+
+enum accountPlanTypeEnum {
+  FIXED
+  VARIABLE
+}
+
+enum costTypeEnum {
+  INCOME
+  OUTCOME
+}
+
+enum finaceStatusTypeEnum {
+  OPEN
+  PAID
+}
