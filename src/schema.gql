@@ -692,7 +692,7 @@ type Query {
     sorting: [FinancesSort!] = []
   ): FinancesConnection!
   gerenateCashFlow(year: String): [CashFlowGroup!]!
-  gerenateCashFlowByAccount: [CashFlowData!]!
+  gerenateCashFlowByAccount(year: String): [CashFlowData!]!
   isTokenValid(token: String!): TokenValidType!
   me: User!
   suppliersAndCustomer(

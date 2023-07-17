@@ -2,7 +2,7 @@ import { TypeOrmQueryService } from '@nestjs-query/query-typeorm';
 
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, Raw } from 'typeorm';
 
 import { QueryService } from '@nestjs-query/core';
 
@@ -19,8 +19,15 @@ export class AccountPlansService extends TypeOrmQueryService<AccountPlan> {
     super(repository, { useSoftDelete: true });
   }
 
-  async gerenateCashFlowByAccount(): Promise<CashFlowDataDTO[]> {
-    const finances = await this.repository.find({ relations: ['finances'] });
+  async gerenateCashFlowByAccount(year?: string): Promise<any[]> {
+    const finances = await this.repository.find({ 
+      relations: ['finances'],  
+      where: year ? {
+        finances: {
+          issuedate: Raw(alias => `EXTRACT(YEAR FROM ${alias}) = ${year}`),
+        },
+      } : undefined,
+  });
 
     const groupedFinances = finances.reduce((acc, data) => {
       const { accountPlanType } = data;
@@ -30,10 +37,10 @@ export class AccountPlansService extends TypeOrmQueryService<AccountPlan> {
       }
       acc[accountPlanType].push(data);
       return acc;
-    }, {} as Record<string, AccountPlan[]>);
+    }, {} as Record<string, AccountPlan[]>);    
 
-    const data = Object.entries(groupedFinances).map((value) => {
-      console.log(value);
+    const data = Object.entries(groupedFinances).map((value) => {   
+         
       return {
         type: value[0],
         cashFlows: value[1],

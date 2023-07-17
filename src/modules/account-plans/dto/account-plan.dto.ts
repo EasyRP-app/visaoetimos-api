@@ -16,6 +16,7 @@ export class CashFlowDataDTO {
   @Field(() => [AccountPlanDTO])
   cashFlows: AccountPlanDTO[];
 }
+
 @ObjectType('AccountPlan')
 @FilterableOffsetConnection('finances', () => FinanceDTO, {
   nullable: true,
