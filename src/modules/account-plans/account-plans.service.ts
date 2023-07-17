@@ -39,7 +39,7 @@ export class AccountPlansService extends TypeOrmQueryService<AccountPlan> {
       return acc;
     }, {} as Record<string, AccountPlan[]>);    
 
-    const data2 = Object.entries(groupedFinances).map((value) => {   
+    const data = Object.entries(groupedFinances).map((value) => {   
          
       return {
         type: value[0],
@@ -47,6 +47,6 @@ export class AccountPlansService extends TypeOrmQueryService<AccountPlan> {
       };
     });
 
-    return data2;
+    return data;
   }
 }
